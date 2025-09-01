@@ -13,7 +13,7 @@ class CheckServiceProviderApproval
         $user = $request->user();
 
         // Check if user is a service provider and not approved
-        if ($user && $user->hasAnyRole(['consultant', 'contractor', 'supplier']) && !$user->approved) {
+        if ($user && $user->hasAnyRole(['consultant','admin', 'contractor', 'supplier']) && !$user->approved) {
             return redirect()->route('account.pending');
         }
 

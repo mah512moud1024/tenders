@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
+    public function getNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -92,10 +96,6 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
-    public function advertisements()
-    {
-        return $this->hasMany(Advertisement::class);
-    }
 
     // Accessors
     public function getFullNameAttribute()
