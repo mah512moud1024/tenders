@@ -26,6 +26,9 @@ class AccountPanelProvider extends PanelProvider
         return $panel
             ->id('account')
             ->path('account')
+            ->login()
+            ->registration(Registration::class)
+            ->profile()
             ->colors([
                 'primary' => Color::Amber,
             ])
