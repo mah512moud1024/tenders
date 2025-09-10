@@ -102,7 +102,7 @@ new #[Layout('layouts.guest')] class extends Component
 
 <div>
     <form wire:submit="register" class="space-y-6">
-        <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white">Create Your Account</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white">{{ __('Create Your Account') }}</h2>
 
         <!-- User Type Selector -->
         <div class="grid grid-cols-2 gap-4 p-1 bg-gray-100 rounded-lg dark:bg-gray-700">
@@ -110,13 +110,13 @@ new #[Layout('layouts.guest')] class extends Component
                     wire:click="$set('userType', 'client')"
                     class="px-4 py-2 text-sm font-medium rounded-md transition-colors"
                     :class="{ 'bg-white text-gray-800 shadow': '{{ $userType }}' === 'client', 'text-gray-600 dark:text-gray-300': '{{ $userType }}' !== 'client' }">
-                I am a Client
+                {{ __('I am a Client') }}
             </button>
             <button type="button"
                     wire:click="$set('userType', 'business')"
                     class="px-4 py-2 text-sm font-medium rounded-md transition-colors"
                     :class="{ 'bg-white text-gray-800 shadow': '{{ $userType }}' === 'business', 'text-gray-600 dark:text-gray-300': '{{ $userType }}' !== 'business' }">
-                I am a Business Owner
+                {{ __('I am a Business Owner') }}
             </button>
         </div>
 
@@ -152,10 +152,10 @@ new #[Layout('layouts.guest')] class extends Component
                 <div>
                     <x-input-label for="businessType" :value="__('Business Type')" />
                     <select wire:model="businessType" id="businessType" name="businessType" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500">
-                        <option value="consultant">Consultant</option>
-                        <option value="contractor">Contractor</option>
-                        <option value="subcontractor">Subcontractor</option>
-                        <option value="supplier">Supplier</option>
+                        <option value="consultant">{{ __('Consultant') }}</option>
+                        <option value="contractor">{{ __('Contractor') }}</option>
+                        <option value="subcontractor">{{ __('Subcontractor') }}</option>
+                        <option value="supplier">{{ __('Supplier') }}</option>
                     </select>
                     <x-input-error :messages="$errors->get('businessType')" class="mt-2" />
                 </div>
@@ -187,17 +187,17 @@ new #[Layout('layouts.guest')] class extends Component
                 <div>
                     <x-input-label for="tradingLicense" :value="__('Trading License (PDF or Image)')" />
                     <input wire:model="tradingLicense" id="tradingLicense" name="tradingLicense" type="file" class="block w-full mt-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                    <div wire:loading wire:target="tradingLicense" class="mt-2 text-sm text-gray-500">Uploading...</div>
+                    <div wire:loading wire:target="tradingLicense" class="mt-2 text-sm text-gray-500">{{ __('Uploading...') }}</div>
                     <x-input-error :messages="$errors->get('tradingLicense')" class="mt-2" />
 
                     @if ($tradingLicense && !$errors->has('tradingLicense'))
                         <div class="mt-4">
                             @if(method_exists($tradingLicense, 'temporaryUrl'))
                                 @if (in_array($tradingLicense->guessExtension(), ['png', 'jpg', 'jpeg']))
-                                    <p class="text-sm text-gray-600 dark:text-gray-300">Image Preview:</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ __('Image Preview:') }}</p>
                                     <img src="{{ $tradingLicense->temporaryUrl() }}" class="mt-2 h-32 rounded-lg border">
                                 @else
-                                    <p class="text-sm text-gray-600 dark:text-gray-300">File Ready: {{ $tradingLicense->getClientOriginalName() }}</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ __('File Ready:') }} {{ $tradingLicense->getClientOriginalName() }}</p>
                                 @endif
                             @endif
                         </div>
@@ -234,9 +234,10 @@ new #[Layout('layouts.guest')] class extends Component
                     {{ __('Register') }}
                 </span>
                 <span wire:loading wire:target="register">
-                    Processing...
+                    {{ __('Processing...') }}
                 </span>
             </x-primary-button>
         </div>
     </form>
 </div>
+
