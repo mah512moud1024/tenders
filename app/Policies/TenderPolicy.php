@@ -25,13 +25,14 @@ class TenderPolicy
     public function create(User $user)
     {
         // Only clients can create tenders
-        return $user->hasRole('client');
+        return $user->hasAnyRole(['client', 'admin' ,'consultant']);
+
     }
 
     public function update(User $user, Tender $tender)
     {
         // Only the owner (client) can update their tender
-        return $user->id === $tender->user_id;
+        return ($user->id === $tender->user_id) || ($user->hasRole('admin'));
     }
 
     public function delete(User $user, Tender $tender)

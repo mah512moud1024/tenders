@@ -109,4 +109,31 @@ class User extends Authenticatable
             return $area->city;
         });
     }
+
+
+    /**
+     * Check if the user has an active subscription.
+     */
+    public function hasActiveSubscription(): bool
+    {
+        return $this->subscriptions()
+            ->where('status', 'active')
+            ->where('ends_at', '>', now())
+            ->exists();
+    }
+
+    /**
+     * Check if the user is allowed to submit a new quote.
+     */
+    public function canSubmitQuote(): bool
+    {
+        // If they have an active subscription, they can always submit.
+        if ($this->hasActiveSubscription()) {
+            return true;
+        }
+
+        // Otherwise, check if they have submitted less than 2 quotes.
+        return $this->quotes()->count() < 2;
+    }
+
 }

@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Filament\Account\Resources\ProjectCategories\Schemas;
+
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+class ProjectCategoryInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextEntry::make('name'),
+                TextEntry::make('slug'),
+                TextEntry::make('parent_id')
+                    ->numeric(),
+                TextEntry::make('order')
+                    ->numeric(),
+                IconEntry::make('active')
+                    ->boolean(),
+                TextEntry::make('created_at')
+                    ->dateTime(),
+                TextEntry::make('updated_at')
+                    ->dateTime(),
+            ]);
+    }
+}
