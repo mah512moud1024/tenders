@@ -1,9 +1,5 @@
 
-    <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Available Tenders') }}
-        </h2>
-    </x-slot>
+
 
     <div class="container mx-auto px-4 py-8">
         <div class="mb-8">
@@ -84,7 +80,7 @@
         <div class="grid grid-cols-4 gap-4">
 
             @forelse($tenders as $tender)
-                <div class="bg-white rounded-lg shadow-md overflow-hidden col-span-2 ">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden col-span-4 ">
                     <div class="p-6">
                         <div class="flex justify-between items-start">
                             <div>
@@ -146,7 +142,7 @@
                                 @auth
                                     @if($canSubmitQuotes[$tender->id])
                                         <a
-                                            href="{{ route('quotes.create', $tender) }}"
+                                            href="{{ route('filament.account.pages.view-tender', $tender) }}"
                                             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                                         >
                                             Submit Quote

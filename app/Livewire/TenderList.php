@@ -33,7 +33,7 @@ class TenderList extends Component
 
     public function render()
     {
-        $tenders = Tender::query()
+        $query = Tender::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');
@@ -44,8 +44,11 @@ class TenderList extends Component
             ->when($this->workType, fn($q) => $q->where('work_type', $this->workType))
             ->where('status', 'published')
             ->where('closing_date', '>', now())
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(10);
+            ->orderBy($this->sortBy, $this->sortDirection);
+
+        // paginate (keep as paginator so blade pagination helpers work)
+        $tenders = $query->paginate(20);
+
 
         $categories = ProjectCategory::whereNull('parent_id')->get();
         $cities = City::where('active', true)->get();
@@ -66,6 +69,16 @@ class TenderList extends Component
         foreach ($tenders as $tender) {
             $canSubmitQuotes[$tender->id] = $this->canSubmitQuote($tender);
         }
+        $currentItems = $tenders->getCollection();
+
+        $tendersCan = $currentItems->filter(fn($t) => ($canSubmitQuotes[$t->id] ?? false))->values();
+        $tendersCant = $currentItems->filter(fn($t) => !($canSubmitQuotes[$t->id] ?? false))->values();
+
+        // preserve the relative order within each group by using filter() then merge()
+        $merged = $tendersCan->merge($tendersCant)->values();
+
+        // replace paginator's collection with the reordered collection
+        $tenders->setCollection($merged);
 
         // ✅ Set the layout for page components
         return view('livewire.tender-list', [
@@ -75,7 +88,7 @@ class TenderList extends Component
             'tenderTypes' => $tenderTypes,
             'workTypes' => $workTypes,
             'canSubmitQuotes' => $canSubmitQuotes,
-        ])->layout('layouts.app'); // <- points to resources/views/layouts/app.blade.php
+        ]); // <- points to resources/views/layouts/app.blade.php
     }
 
     public function sortBy($field)
@@ -106,6 +119,6 @@ class TenderList extends Component
             default => null,
         };
 
-        return $user->hasRole($requiredRole) && $user->approved;
+        return ($user->hasRole($requiredRole) && $user->approved) || ($user->hasRole($requiredRole) && $user->approved );
     }
 }

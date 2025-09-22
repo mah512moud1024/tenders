@@ -1,16 +1,15 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
 import preset from './vendor/filament/support/tailwind.config.preset'
 import forms from '@tailwindcss/forms';
-
+import defaultTheme from 'tailwindcss/defaultTheme';
 /** @type {import('tailwindcss').Config} */
 export default {
     presets: [preset],
     content: [
-        './app/Filament/Account/**/*.php',
-        './resources/views/filament/account/**/*.blade.php',
+        './app/Filament/**/*.php',
+        './resources/views/filament/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
+        './app/Livewire/**/*.php',
+        './app/Volt/**/*.php',
         './resources/views/**/*.blade.php',
     ],
 

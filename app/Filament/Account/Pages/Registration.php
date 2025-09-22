@@ -42,10 +42,9 @@ class Registration extends Page implements HasForms
     public function mount(): void
     {
         if (auth()->check()) {
-            redirect('/');
+            redirect()->intended(filament()->getDashboardUrl());
         }
-
-
+        $this->form->fill();
     }
 
     public function form(Form $form): Form

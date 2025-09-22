@@ -31,7 +31,7 @@ class AccountPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->viteTheme('resources/css/filament/account/theme.css') // This is the new line
+            ->viteTheme('resources/css/app.css')
             ->discoverResources(in: app_path('Filament/Account/Resources'), for: 'App\Filament\Account\Resources')
             ->discoverPages(in: app_path('Filament/Account/Pages'), for: 'App\Filament\Account\Pages')
             ->pages([

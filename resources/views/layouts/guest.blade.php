@@ -27,5 +27,6 @@
                 {{ $slot }}
             </div>
         </div>
+        <livewire:verify-phone-modal />
     </body>
 </html>

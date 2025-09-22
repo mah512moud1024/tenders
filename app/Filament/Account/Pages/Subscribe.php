@@ -42,6 +42,7 @@ class Subscribe extends Page
     }
 
     protected function getActions(): array
+
     {
         return [
             Action::make('choosePlan')

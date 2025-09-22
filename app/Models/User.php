@@ -35,6 +35,8 @@ class User extends Authenticatable
         'trading_license',
         'license_expiry',
         'approved',
+        'phone_verified_at',
+        'phone_verify_code',
     ];
 
     /**
@@ -45,6 +47,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'phone_verify_code',
     ];
 
     /**
@@ -59,6 +62,7 @@ class User extends Authenticatable
             'license_expiry' => 'datetime',
             'approved' => 'boolean',
             'password' => 'hashed',
+            'phone_verified_at' => 'datetime',
         ];
     }
     public function serviceAreas()

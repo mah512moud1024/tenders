@@ -1,13 +1,16 @@
 import { defineConfig } from 'vite';
 import laravel, {refreshPaths} from 'laravel-vite-plugin';
-import tailwindcss from "@tailwindcss/vite";
 
+import autoprefixer from 'autoprefixer';
+import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
+
     plugins: [
 
         tailwindcss(),
+        autoprefixer(),
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js','resources/css/filament/account/theme.css'],
+            input: ['resources/css/public.css','resources/css/app.css','resources/js/app.js'],
 
             refresh: [
 

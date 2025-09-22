@@ -8,7 +8,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rules\Password;
-
+use App\Services\TwilioService;
 new #[Layout('layouts.guest')] class extends Component
 {
     use WithFileUploads;
@@ -65,6 +65,17 @@ new #[Layout('layouts.guest')] class extends Component
     public function register(): void
     {
         $validated = $this->validate();
+        $verificationCode = random_int(100000, 999999);
+        $message = "Your verification code is: {$verificationCode}";
+
+        // Use the Twilio Service to send the SMS  $smsSent = app(TwilioService::class)->sendSms($this->phone, $message);
+
+
+        $smsSent = app(TwilioService::class)->sendSms('+18777804236' , $message);
+        if (!$smsSent) {
+            $this->addError('phone', 'We could not send a verification code to this number. Please check it and try again.');
+            return;
+        }
 
         $userData = [
             'first_name' => $this->firstName,
@@ -73,6 +84,7 @@ new #[Layout('layouts.guest')] class extends Component
             'phone' => $this->phone,
             'password' => Hash::make($this->password),
             'type' => $this->userType === 'client' ? 'client' : $this->businessType,
+            'phone_verify_code' => $verificationCode,
         ];
 
         if ($this->userType === 'business') {
@@ -88,14 +100,15 @@ new #[Layout('layouts.guest')] class extends Component
         } else {
             $userData['approved'] = true; // Clients are auto-approved
         }
+        session([
+            'registration_data' => $userData,
+            'verification_code' => $verificationCode,
+            'code_expires_at' => now()->addSeconds(60),
+            'verify_attempts' => 0,
+        ]);
 
-        $user = User::create($userData);
+        $this->dispatch('open-verify-modal');
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
 }; ?>
 
@@ -240,4 +253,3 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
     </form>
 </div>
-
