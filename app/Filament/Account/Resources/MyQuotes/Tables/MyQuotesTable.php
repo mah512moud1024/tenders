@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Filament\Account\Resources\MyQuoteResource\Tables;
+
+use App\Filament\Account\Pages\ViewTender;
+use App\Models\Quote;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class MyQuotesTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('tender.title')
+                    ->label('Tender Title')
+                    ->searchable()
+                    ->sortable()
+                    ->url(fn (Quote $record): string => ViewTender::getUrl(['record' => $record->tender_id])),
+
+                TextColumn::make('amount')
+                    ->money('SAR')
+                    ->sortable(),
+
+                BadgeColumn::make('status')
+                    ->colors([
+                        'primary' => 'under_review',
+                        'warning' => 'submitted',
+                        'success' => 'accepted',
+                        'danger' => 'rejected',
+                    ])
+                    ->sortable(),
+
+                TextColumn::make('created_at')
+                    ->label('Submitted On')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->defaultSort('created_at', 'desc');
+    }
+}
