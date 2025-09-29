@@ -17,7 +17,6 @@
 
     <!-- Scripts -->
     @vite(['resources/css/public.css', 'resources/js/app.js'])
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
         :root {
@@ -245,7 +244,6 @@
         </div>
     </footer>
 </div>
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
