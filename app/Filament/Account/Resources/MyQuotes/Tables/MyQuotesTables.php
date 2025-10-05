@@ -8,7 +8,7 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class MyQuotesTable
+class MyQuotesTables
 {
     public static function configure(Table $table): Table
     {
@@ -35,7 +35,7 @@ class MyQuotesTable
 
                 TextColumn::make('created_at')
                     ->label('Submitted On')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

@@ -20,11 +20,11 @@ class Subscribe extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
     protected string $view = 'filament.account.pages.subscribe';
-    protected static string | UnitEnum | null $navigationGroup =  'Subscriptiont';
+    protected static string | UnitEnum | null $navigationGroup =  'Subscription';
 
     public function getTitle(): string
     {
-        return __('Subscription Planst');
+        return __('Subscription Plans');
     }
 
     public static function canAccess(): bool
@@ -41,12 +41,15 @@ class Subscribe extends Page
         ];
     }
 
+
+
+
     protected function getActions(): array
 
     {
         return [
             Action::make('choosePlan')
-                ->label('Choose Plan')
+                ->label(__('Choose Plan'))
                 ->button()
                 ->color('primary')
                 ->modalHeading('Confirm Subscription Request')
@@ -81,5 +84,6 @@ class Subscribe extends Page
                 }),
         ];
     }
+
 }
 

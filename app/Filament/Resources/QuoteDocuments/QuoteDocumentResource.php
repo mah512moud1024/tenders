@@ -20,7 +20,7 @@ class QuoteDocumentResource extends Resource
 {
     protected static ?string $model = QuoteDocument::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentDuplicate;
 
     protected static ?string $recordTitleAttribute = 'QuoteDocument';
 

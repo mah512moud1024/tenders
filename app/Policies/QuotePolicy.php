@@ -33,8 +33,8 @@ class QuotePolicy
     public function update(User $user, Quote $quote)
     {
         // Only the quote owner can update their quote (if not yet accepted)
-        return $user->id === $quote->user_id &&
-            $quote->status !== 'accepted';
+        return ($user->id === $quote->user_id &&
+            $quote->status !== 'accepted') || $user->hasRole('admin');
     }
 
     public function delete(User $user, Quote $quote)

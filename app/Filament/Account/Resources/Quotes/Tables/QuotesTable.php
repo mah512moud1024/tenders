@@ -8,6 +8,7 @@ use Filament\Infolists;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Invoice;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -90,6 +91,8 @@ class QuotesTable
                                 ->where('id', '!=', $record->id)
                                 ->update(['status' => 'rejected']);
 
+                            self::generateCommissionInvoice($record);
+
                             Notification::make()
                                 ->title('Quote Accepted')
                                 ->body('The provider has been notified.')
@@ -119,4 +122,55 @@ class QuotesTable
             ]);
 
     }
+    /**
+     * Generate commission invoice for accepted quote
+     */
+    private static function generateCommissionInvoice(Quote $quote): void
+    {
+        $commissionRate = 2.00; // 2% commission
+        $commissionAmount = $quote->amount * ($commissionRate / 100);
+
+        // Generate unique invoice number
+        $invoiceNumber = 'INV-COMM-' . date('Ymd') . '-' . strtoupper(uniqid());
+
+        try {
+            Invoice::create([
+                'invoice_number' => $invoiceNumber,
+                'transaction_id' => null, // No transaction until paid
+                'user_id' => $quote->user_id, // The business owner who submitted the quote
+                'issue_date' => now(),
+                'due_date' => now()->addDays(30),
+                'amount' => $commissionAmount,
+                'tax_amount' => 0, // No tax on commission
+                'total_amount' => $commissionAmount,
+                'status' => 'sent', // Invoice is sent but not paid yet
+                'notes' => 'Commission for accepted quote on tender: ' . $quote->tender->title,
+
+                // Polymorphic relationship to quote
+                'invoiceable_type' => Quote::class,
+                'invoiceable_id' => $quote->id,
+
+                // Commission-specific fields
+                'commission_rate' => $commissionRate,
+                'quote_total_value' => $quote->amount,
+
+                // Additional fields
+                'currency' => 'SAR',
+                'payment_terms' => 'Commission payable within 30 days of quote acceptance',
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to generate commission invoice for quote ID: ' . $quote->id, [
+                'error' => $e->getMessage()
+            ]);
+
+            // You can also send a notification about the failure
+            Notification::make()
+                ->title('Invoice Generation Failed')
+                ->body('Commission invoice could not be generated. Please check logs.')
+                ->danger()
+                ->send();
+        }
+    }
+
 }

@@ -23,7 +23,7 @@ class TenderResource extends Resource
 {
     protected static ?string $model = Tender::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?string $navigationLabel = 'My Tenders';
 

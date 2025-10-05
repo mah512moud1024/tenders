@@ -20,7 +20,7 @@ class ContractResource extends Resource
 {
     protected static ?string $model = Contract::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $recordTitleAttribute = 'Contract';
 

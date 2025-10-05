@@ -15,14 +15,13 @@ class SubscriptionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('plan_id')
+
+                TextColumn::make('plan.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('starts_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
+
                     ->sortable(),
                 TextColumn::make('ends_at')
                     ->dateTime()
@@ -35,25 +34,16 @@ class SubscriptionsTable
                     ->sortable(),
                 TextColumn::make('status'),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
-            ])
-            ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }

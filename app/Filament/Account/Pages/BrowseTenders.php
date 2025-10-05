@@ -11,7 +11,7 @@ class BrowseTenders extends Page
     protected string $view = 'filament.account.pages.browse-tenders';
     protected static ?string $navigationLabel = 'Browse Tenders';
 
-    protected static string|null|\BackedEnum $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|null|\BackedEnum $navigationIcon = Heroicon::OutlinedBuildingOffice;
     protected static ?int $navigationSort = 1;
 
 

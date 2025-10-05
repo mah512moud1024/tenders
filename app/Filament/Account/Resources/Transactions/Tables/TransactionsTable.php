@@ -17,20 +17,12 @@ class TransactionsTable
             ->columns([
                 TextColumn::make('transaction_id')
                     ->searchable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('payable_type')
-                    ->searchable(),
-                TextColumn::make('payable_id')
-                    ->numeric()
-                    ->sortable(),
+
+
                 TextColumn::make('amount')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('platform_fee')
-                    ->numeric()
-                    ->sortable(),
+
                 TextColumn::make('payment_method')
                     ->searchable(),
                 TextColumn::make('status'),
@@ -46,14 +38,6 @@ class TransactionsTable
             ->filters([
                 //
             ])
-            ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+   ;
     }
 }

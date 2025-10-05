@@ -139,7 +139,7 @@ new #[Layout('components.public-layout')] class extends Component
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <!-- Registration Form -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100" data-aos="fade-right">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100" >
                     <form wire:submit="register" class="space-y-6">
                         <div class="text-center mb-8">
                             <div class="w-16 h-16 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-4">
@@ -348,7 +348,7 @@ new #[Layout('components.public-layout')] class extends Component
                 </div>
 
                 <!-- Benefits Sidebar -->
-                <div class="space-y-6" data-aos="fade-left">
+                <div class="space-y-6" >
                     <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 p-8 rounded-2xl text-white">
                         <div class="text-center">
                             <h3 class="text-2xl font-bold mb-4">Why Join Our Platform?</h3>

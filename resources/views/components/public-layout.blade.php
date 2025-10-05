@@ -281,5 +281,7 @@
         window.addEventListener('scroll', updateActiveNavLink);
     });
 </script>
+<livewire:verify-phone-modal />
+
 </body>
 </html>

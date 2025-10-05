@@ -47,12 +47,14 @@
                 {{-- This button calls the "choosePlan" action from your PHP class --}}
                 {{-- It is only shown if the user doesn't have a current subscription --}}
                 @if(!$currentSubscription)
-                    {{ $this->getAction('choosePlan')(['plan_id' => $plan->id]) }}
+                    @if(!empty($plan->id)) {{ $this->getAction('choosePlan')(['plan_id' => $plan->id]) }}@endif
+
                 @endif
             </div>
         @empty
             <p>{{ __('No subscription plans are available at the moment.') }}</p>
         @endforelse
+            <style>body > div.fi-layout > div.fi-main-ctn > main > div > div.fi-page-header-main-ctn > header > div.fi-header-actions-ctn > div {display: none}</style>
     </div>
 
 </x-filament-panels::page>

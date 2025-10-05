@@ -20,7 +20,7 @@ class TenderSpecificationResource extends Resource
 {
     protected static ?string $model = TenderSpecification::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
     protected static ?string $recordTitleAttribute = 'TenderSpecification';
 

@@ -43,7 +43,7 @@ class SubscriptionTransactionSeeder extends Seeder
                 'notes' => 'Subscription payment for ' . $plan->name . ' plan',
             ]);
 
-            // Create invoice
+            // Create invoice with new structure
             Invoice::create([
                 'invoice_number' => 'INV-' . date('Ymd') . '-' . strtoupper(uniqid()),
                 'transaction_id' => $transaction->id,
@@ -55,6 +55,58 @@ class SubscriptionTransactionSeeder extends Seeder
                 'total_amount' => $plan->price * 1.15, // amount + tax
                 'status' => 'paid',
                 'notes' => 'Invoice for subscription to ' . $plan->name . ' plan',
+
+                // New fields for polymorphic relationship
+                'invoiceable_type' => Subscription::class,
+                'invoiceable_id' => $subscription->id,
+
+                // Commission fields (null for subscription invoices)
+                'commission_rate' => null,
+                'quote_total_value' => null,
+
+                // Additional fields
+                'currency' => 'USD',
+                'payment_terms' => 'Payment due within 15 days',
+            ]);
+        }
+
+        // Optional: Create some commission invoices without transactions (for testing)
+        $this->createCommissionInvoices();
+    }
+
+    private function createCommissionInvoices()
+    {
+        // Get some service providers to create commission invoices for
+        $providers = User::where('type', '!=', 'client')
+            ->where('approved', true)
+            ->take(3)
+            ->get();
+
+        foreach ($providers as $provider) {
+            // Create a commission invoice without transaction (unpaid)
+            Invoice::create([
+                'invoice_number' => 'INV-COMM-' . date('Ymd') . '-' . strtoupper(uniqid()),
+                'transaction_id' => null, // No transaction yet - invoice is unpaid
+                'user_id' => $provider->id,
+                'issue_date' => now(),
+                'due_date' => now()->addDays(30),
+                'amount' => 500.00, // Example commission amount
+                'tax_amount' => 75.00, // 15% tax
+                'total_amount' => 575.00,
+                'status' => 'sent', // Not paid yet
+                'notes' => 'Commission for accepted quote on tender #TDR-001',
+
+                // Link to quote (assuming you have a Quote model)
+                'invoiceable_type' => 'App\\Models\\Quote', // Update with your actual Quote model
+                'invoiceable_id' => 1, // Example quote ID
+
+                // Commission-specific fields
+                'commission_rate' => 5.00, // 5% commission
+                'quote_total_value' => 10000.00, // Total value of the accepted quote
+
+                // Additional fields
+                'currency' => 'USD',
+                'payment_terms' => 'Commission payable within 30 days of quote acceptance',
             ]);
         }
     }

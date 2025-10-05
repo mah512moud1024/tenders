@@ -22,7 +22,7 @@ class QuoteResource extends Resource
 {
     protected static ?string $model = Quote::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedInboxArrowDown;
     protected static ?string $navigationLabel = 'Received Quotes';
 
     protected static ?string $slug = 'received-quotes';

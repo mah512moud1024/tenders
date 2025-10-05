@@ -2,7 +2,7 @@
 
 namespace App\Filament\Account\Resources\MyQuotes;
 
-use App\Filament\Account\Resources\MyQuoteResource\Tables\MyQuotesTable;
+use App\Filament\Account\Resources\MyQuoteResource\Tables\MyQuotesTables;
 
 use App\Models\Quote; // <-- IMPORTANT: We now use the correct model
 use Filament\Resources\Resource;
@@ -17,7 +17,7 @@ class MyQuoteResource extends Resource
     // This is the crucial change: Pointing the resource to the Quote model
     protected static ?string $model = Quote::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
     protected static ?string $navigationLabel = 'All Quotes';
 
@@ -53,7 +53,7 @@ class MyQuoteResource extends Resource
     public static function table(Table $table): Table
     {
         // We will configure the table in the next step
-        return MyQuotesTable::configure($table);
+        return MyQuotesTables::configure($table);
     }
 
     public static function getPages(): array

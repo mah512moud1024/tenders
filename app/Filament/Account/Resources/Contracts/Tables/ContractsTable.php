@@ -33,20 +33,20 @@ class ContractsTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('start_date')
-                    ->dateTime()
+                    ->datetime('d/m/Y H:i')
                     ->sortable(),
                 TextColumn::make('end_date')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable(),
                 TextColumn::make('status'),
                 TextColumn::make('signed_contract_file')
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

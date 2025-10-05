@@ -15,12 +15,14 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class QuoteDocumentResource extends Resource
 {
     protected static ?string $model = QuoteDocument::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentDuplicate;
 
     protected static ?string $recordTitleAttribute = 'QuoteDocument';
 
@@ -38,7 +40,14 @@ class QuoteDocumentResource extends Resource
     {
         return QuoteDocumentsTable::configure($table);
     }
-
+    public static function getEloquentQuery(): Builder
+    {
+        // This ensures users only see their own quotes
+        return parent::getEloquentQuery()
+            ->whereHas('quote', function (Builder $query) {
+                $query->where('user_id', Auth::id());
+            });
+    }
     public static function getRelations(): array
     {
         return [

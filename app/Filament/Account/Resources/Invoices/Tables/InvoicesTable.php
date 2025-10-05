@@ -24,10 +24,10 @@ class InvoicesTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('issue_date')
-                    ->date()
+                    ->date('d/m/Y H:i')
                     ->sortable(),
                 TextColumn::make('due_date')
-                    ->date()
+                    ->date('d/m/Y ')
                     ->sortable(),
                 TextColumn::make('amount')
                     ->numeric()
@@ -40,11 +40,11 @@ class InvoicesTable
                     ->sortable(),
                 TextColumn::make('status'),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

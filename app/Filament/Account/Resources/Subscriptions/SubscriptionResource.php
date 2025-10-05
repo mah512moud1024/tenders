@@ -15,14 +15,20 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionResource extends Resource
 {
     protected static ?string $model = Subscription::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCreditCard;
 
     protected static ?string $recordTitleAttribute = 'Subscription';
+    public static function canCreate(): bool
+    {
+        return false;
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -45,12 +51,16 @@ class SubscriptionResource extends Resource
             //
         ];
     }
-
+    public static function getEloquentQuery(): Builder
+    {
+        // This ensures users only see their own quotes
+        return parent::getEloquentQuery()->where('user_id', Auth::id());
+    }
     public static function getPages(): array
     {
         return [
             'index' => ListSubscriptions::route('/'),
-            'create' => CreateSubscription::route('/create'),
+
             'view' => ViewSubscription::route('/{record}'),
             'edit' => EditSubscription::route('/{record}/edit'),
         ];
