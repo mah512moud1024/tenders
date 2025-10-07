@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\{
     Tender, Quote, Contract, User, Subscription
 };
+
 use App\Policies\{
     TenderPolicy, QuotePolicy, ContractPolicy, UserPolicy,
     SubscriptionPolicy

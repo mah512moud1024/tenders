@@ -26,12 +26,27 @@ class AccountPanelProvider extends PanelProvider
         return $panel
             ->id('account')
             ->path('account')
-            ->login()
             ->profile()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => [
+                    50 => '#eef2ff',
+                    100 => '#e0e7ff',
+                    200 => '#c7d2fe',
+                    300 => '#a5b4fc',
+                    400 => '#818cf8',
+                    500 => '#6366f1', // Main indigo
+                    600 => '#4f46e5',
+                    700 => '#4338ca',
+                    800 => '#3730a3',
+                    900 => '#312e81',
+                    950 => '#1e1b4b',
+                ],
+
             ])
+            ->font('Figtree') // Match your public pages
+            ->brandName(config('app.name', 'Tenders Platform'))
             ->viteTheme('resources/css/app.css')
+
             ->discoverResources(in: app_path('Filament/Account/Resources'), for: 'App\Filament\Account\Resources')
             ->discoverPages(in: app_path('Filament/Account/Pages'), for: 'App\Filament\Account\Pages')
             ->pages([

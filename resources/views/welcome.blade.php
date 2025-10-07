@@ -30,14 +30,14 @@
                     {{ __('hero.subtitle') }}
                 </p>
                 <div class="mt-8 flex flex-col sm:flex-row gap-4 {{ app()->getLocale() === 'ar' ? 'sm:justify-end' : '' }}">
-                    <a href="{{ route('filament.account.auth.login') }}"
+                    <a href="{{ route('login') }}"
                        class="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
                         <span>{{ __('cta.post_tender') }}</span>
                     </a>
-                    <a href="{{ route('filament.account.auth.login') }}"
+                    <a href="{{ route('login') }}"
                        class="inline-flex items-center justify-center gap-2 border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium px-6 py-3 rounded-lg transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
@@ -160,7 +160,7 @@
                     <h3 class="text-2xl font-bold mb-4">{{ __('quick_stats.title') }}</h3>
                     <div class="text-5xl font-bold mb-2">{{ __('quick_stats.lead') }}</div>
                     <p class="text-indigo-100 mb-6">{{ __('quick_stats.text') }}</p>
-                    <a href="{{ route('filament.account.auth.login') }}" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                    <a href="{{ route('login') }}" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
                         {{ __('cta.post_tender') }}
                     </a>
                 </div>
@@ -281,7 +281,7 @@
             <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
                 {{ __('cta.post_tender') }}
             </a>
-            <a href="{{ route('filament.account.auth.login') }}" class="inline-flex items-center justify-center bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
+            <a href="{{ route('login') }}" class="inline-flex items-center justify-center bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
                 {{ __('cta.browse') }}
             </a>
         </div>

@@ -14,6 +14,53 @@
 
     <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        // Initialize AOS
+        function initAOS() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initAOS();
+
+            // Nav link active state
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function updateActiveNavLink() {
+                let scrollY = window.pageYOffset;
+
+                sections.forEach(section => {
+                    const sectionHeight = section.offsetHeight;
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('nav-active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('nav-active');
+                            }
+                        });
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNavLink);
+        });
+
+        // Reinitialize AOS on Livewire navigation
+        document.addEventListener('livewire:navigated', () => {
+            setTimeout(() => {
+                initAOS();
+            }, 100);
+        });
+    </script>
 
     <!-- Scripts -->
     @vite(['resources/css/public.css', 'resources/js/app.js'])
@@ -136,12 +183,11 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
-                    <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Home</a>
-                    <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">About</a>
-                    <a href="#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">How It Works</a>
-                    <a href="#why-us" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Why Us</a>
-                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Pricing</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Testimonials</a>
+                    <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
 
                     <!-- Language Switcher -->
                     @if (app()->getLocale() == 'ar')
@@ -153,7 +199,7 @@
                     @auth
                         <a href="{{ route('filament.account.pages.dashboard') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">{{ __('Dashboard') }}</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">{{ __('Log in') }}</a>
+                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-indigo-600 font-medium px-4 transition-colors">{{ __('Log in') }}</a>
                         <a href="{{ route('register') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">{{ __('Register') }}</a>
                     @endauth
                 </div>
@@ -281,6 +327,7 @@
         window.addEventListener('scroll', updateActiveNavLink);
     });
 </script>
+
 <livewire:verify-phone-modal />
 
 </body>
