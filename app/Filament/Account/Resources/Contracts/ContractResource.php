@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class ContractResource extends Resource
 {
@@ -23,7 +24,19 @@ class ContractResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $recordTitleAttribute = 'Contract';
-
+    public static function canViewAny(): bool
+    {
+        $userType = Auth::user()->type;
+        return false;
+    }
+    public static function getnavigationLabel(): string
+    {
+        return __('Contract');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Contract');
+    }
     public static function form(Schema $schema): Schema
     {
         return ContractForm::configure($schema);

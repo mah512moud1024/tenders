@@ -38,8 +38,8 @@ class QuotesTable
                     ->label('Submitted By')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('amount')
-                    ->money('SAR') // Change currency as needed
+                TextColumn::make(__('amount'))
+                    ->money(__('AED')) // Change currency as needed
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge()

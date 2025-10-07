@@ -29,7 +29,14 @@ class SubscriptionResource extends Resource
     {
         return false;
     }
-
+    public static function getnavigationLabel(): string
+    {
+        return __('Subscription');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Subscription');
+    }
     public static function form(Schema $schema): Schema
     {
         return SubscriptionForm::configure($schema);

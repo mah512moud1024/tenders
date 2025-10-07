@@ -24,7 +24,14 @@ class TenderResource extends Resource
     protected static ?string $model = Tender::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
-
+    public static function getnavigationLabel(): string
+    {
+        return __('My Tenders');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('My Tenders');
+    }
     protected static ?string $navigationLabel = 'My Tenders';
 
     protected static ?string $slug = 'my-tenders';

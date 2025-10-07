@@ -25,7 +25,9 @@
     "Register": "Register",
     "Processing...": "Processing...",
     "meta.title": "Tenders Platform — Find & Post Projects",
-    "hero.title": "Find local tenders & receive offers from trusted companies",
+    "hero.title": "Find local tenders & receive ",
+    "hero.title2": "offers",
+    "hero.title3": "from trusted companies",
     "hero.subtitle": "Publish your project, receive competitive offers, and hire the best contractor.",
     "hero.alt": "People reviewing project plans",
     "cta.post_tender": "Post a Tender",
@@ -110,6 +112,26 @@
     "testimonials.author3": "R. Haddad",
     "testimonials.role3": "Project Owner",
     "trust.title": "Trusted by",
-    "trust.text": "Companies that rely on our platform to find partners."
+    "trust.text": "Companies that rely on our platform to find partners.",
+    "cta.title":"Ready to get started",
+    "cta.text":"Join thousands of companies already using our platform to find the perfect partners for their projects.",
+    "AED": "AED",
+    "amount": "amount",
+    "All Quotes": "All Quotes",
+    "Invoice":"الفواتير",
+    "Contract":"Contract",
+    "Received Quotes": "Received Quotes",
+    "Subscription": "My Subscription",
+    "My Tenders": "My Tenders",
+    "Transactions": "Transactions",
+    "Browse Tenders": "Browse Tenders",
+    "Subscription plans": "Subscription plans"
+
+
+
+
+
+
+
 
 }

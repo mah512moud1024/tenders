@@ -20,11 +20,11 @@ class InvoicesTable
                 TextColumn::make('transaction_id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('user_id')
+                TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('issue_date')
-                    ->date('d/m/Y H:i')
+                    ->date('d/m/Y')
                     ->sortable(),
                 TextColumn::make('due_date')
                     ->date('d/m/Y ')

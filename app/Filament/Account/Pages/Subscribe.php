@@ -21,7 +21,14 @@ class Subscribe extends Page
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
     protected string $view = 'filament.account.pages.subscribe';
     protected static string | UnitEnum | null $navigationGroup =  'Subscription';
-
+    public static function getnavigationLabel(): string
+    {
+        return __('Subscription plans');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Subscription plans');
+    }
     public function getTitle(): string
     {
         return __('Subscription Plans');

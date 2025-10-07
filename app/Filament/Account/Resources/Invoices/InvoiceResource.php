@@ -23,7 +23,14 @@ class InvoiceResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedReceiptRefund;
 
     protected static ?string $recordTitleAttribute = 'Invoice';
-
+    public static function getnavigationLabel(): string
+    {
+        return __('Invoice');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Invoice');
+    }
     public static function form(Schema $schema): Schema
     {
         return InvoiceForm::configure($schema);

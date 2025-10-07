@@ -108,7 +108,7 @@
         }
 
         /* Mobile responsiveness */
-        @media (max-width: 768px) {
+        @media (max-width: 1000px) {
             .section-padding {
                 padding: 3rem 0;
             }
@@ -135,7 +135,7 @@
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+                <div class="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
                     <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Home</a>
                     <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">About</a>
                     <a href="#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">How It Works</a>
@@ -159,7 +159,7 @@
                 </div>
 
                 <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center space-x-4 rtl:space-x-reverse">
+                <div class="lg:hidden flex items-center space-x-4 rtl:space-x-reverse">
                     <!-- Language Switcher -->
                     @if (app()->getLocale() == 'ar')
                         <a href="{{ route('language.switch', 'en') }}" class="text-sm font-medium text-gray-600">EN</a>
@@ -176,7 +176,7 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div x-show="open" class="md:hidden py-4 border-t border-gray-200" x-cloak>
+            <div x-show="open" class="lg:hidden py-4 border-t border-gray-200" x-cloak>
                 <div class="flex flex-col space-y-4">
                     <a href="#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Home</a>
                     <a href="#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">About</a>

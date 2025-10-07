@@ -14,10 +14,17 @@ class BrowseTenders extends Page
     protected static string|null|\BackedEnum $navigationIcon = Heroicon::OutlinedBuildingOffice;
     protected static ?int $navigationSort = 1;
 
-
+    public static function getnavigationLabel(): string
+    {
+        return __('Browse Tenders');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Browse Tenders');
+    }
     public function getTitle(): string
     {
-        return __('Browse Available Tenders');
+        return __('Browse Tenders');
     }
     public static function canAccess(): bool
     {

@@ -273,9 +273,9 @@
 <!-- CTA Section -->
 <section class="py-16 bg-indigo-600">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">Ready to get started?</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">{{ __('cta.title') }}</h2>
         <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-            Join thousands of companies already using our platform to find the perfect partners for their projects.
+            {{ __('cta.text') }}
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
             <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">

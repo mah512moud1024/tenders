@@ -26,6 +26,14 @@ class QuoteResource extends Resource
     protected static ?string $navigationLabel = 'Received Quotes';
 
     protected static ?string $slug = 'received-quotes';
+    public static function getnavigationLabel(): string
+    {
+        return __('Received Quotes');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Received Quotes');
+    }
 
     protected static ?string $recordTitleAttribute = 'Quote';
     public static function canCreate(): bool

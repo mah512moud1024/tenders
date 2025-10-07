@@ -20,10 +20,17 @@ class MyQuoteResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
     protected static ?string $navigationLabel = 'All Quotes';
-
+    public static function getnavigationLabel(): string
+    {
+        return __('All Quotes');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('All Quotes');
+    }
     protected static ?string $slug = 'all-quotes';
 
-    protected static ?string $recordTitleAttribute = 'All Quotes';
+
 
 
     public static function canCreate(): bool

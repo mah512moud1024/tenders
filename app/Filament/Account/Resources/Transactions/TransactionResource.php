@@ -25,7 +25,14 @@ class TransactionResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCurrencyDollar;
 
     protected static ?string $recordTitleAttribute = 'Transactions';
-
+    public static function getnavigationLabel(): string
+    {
+        return __('Transactions');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Transactions');
+    }
     public static function form(Schema $schema): Schema
     {
         return TransactionForm::configure($schema);
