@@ -34,7 +34,7 @@ function urlRedirectForDashboard()
     }
 }; ?>
 
-<div class="bg-gradient-to-br from-gray-50 to-indigo-50 pt-24 pb-16 min-h-screen flex items-center">
+<div class="overflow-prevent bg-gradient-to-br from-gray-50 to-indigo-50 pt-24 pb-16 min-h-screen flex items-center">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Left Column - Illustration and Info -->

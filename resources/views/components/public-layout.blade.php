@@ -73,7 +73,7 @@
             --text-dark: #1f2937;
             --text-light: #6b7280;
         }
-        main{
+        .overflow-prevent{
             overflow-x: hidden;
         }
 
