@@ -6,7 +6,7 @@
 <!-- Hero Section -->
 <section id="home" class=" bg-[#1010100d] pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
     <div style="
-    background-image: url('{{ asset('bg-top-lines.svg') }}');
+    background-image: url('{{ asset('storage/bg-top-lines.svg') }}');
     background-repeat: no-repeat;
     background-position: top left;
     background-size: cover;">
@@ -19,7 +19,7 @@
             <div class="{{ app()->getLocale() === 'ar' ? 'lg:order-1' : '' }}" data-aos="fade-left" data-aos-delay="400">
                 <div class="relative">
 
-                    <img src="{{ asset('hero-main.png.webp') }}" alt="{{ __('hero.alt') }}" class="">
+                    <img src="{{ asset('storage/hero-main.png.webp') }}" alt="{{ __('hero.alt') }}" class="">
                 </div>
             </div>
             <div class="{{ app()->getLocale() === 'ar' ? 'lg:order-2 text-right' : 'text-left' }}" data-aos="fade-right" data-aos-delay="200">
