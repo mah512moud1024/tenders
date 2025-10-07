@@ -18,7 +18,7 @@
         // Initialize AOS
         function initAOS() {
             AOS.init({
-                duration: 800,
+                duration: 100,
                 once: true,
                 offset: 100
             });
@@ -72,6 +72,9 @@
             --accent: #f59e0b;
             --text-dark: #1f2937;
             --text-light: #6b7280;
+        }
+        main{
+            overflow-x: hidden;
         }
 
         body {
