@@ -4,7 +4,7 @@
 
 
 <!-- Hero Section -->
-<section id="home" class=" bg-[#1010100d] pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+<section id="home" class=" bg-[#f3f3f3] pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
     <div style="
     background-image: url('{{ asset('storage/bg-top-lines.svg') }}');
     background-repeat: no-repeat;
@@ -16,13 +16,13 @@
     >
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="{{ app()->getLocale() === 'ar' ? 'lg:order-1' : '' }}" data-aos="fade-left" data-aos-delay="400">
+            <div class="{{ app()->getLocale() === 'ar' ? 'lg:order-1' : '' }}" data-aos="fade-left" data-aos-delay="400" >
                 <div class="relative">
 
                     <img src="{{ asset('storage/hero-main.png.webp') }}" alt="{{ __('hero.alt') }}" class="">
                 </div>
             </div>
-            <div class="{{ app()->getLocale() === 'ar' ? 'lg:order-2 text-right' : 'text-left' }}" data-aos="fade-right" data-aos-delay="200">
+            <div class="{{ app()->getLocale() === 'ar' ? 'lg:order-2 text-right' : 'text-left' }}" data-aos="fade-right" data-aos-delay="200" >
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                     {{ __('hero.title') }} <span class="text-indigo-600">{{ __('hero.title2') }}</span> {{ __('hero.title3') }}
                 </h1>
@@ -55,13 +55,13 @@
 <!-- About Section -->
 <section id="about" class="section-padding bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ __('about.title') }}</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ __('about.text') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="100" data-aos-duration="200">
                 <div class="w-16 h-16 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -71,7 +71,7 @@
                 <p class="text-gray-600">{{ __('features.trusted.text') }}</p>
             </div>
 
-            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="200" data-aos-duration="300">
                 <div class="w-16 h-16 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
@@ -81,7 +81,7 @@
                 <p class="text-gray-600">{{ __('features.fast.text') }}</p>
             </div>
 
-            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="300">
+            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="300" data-aos-duration="400">
                 <div class="w-16 h-16 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
@@ -91,7 +91,7 @@
                 <p class="text-gray-600">{{ __('features.compare.text') }}</p>
             </div>
 
-            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="400">
+            <div class="text-center p-6 card-hover rounded-xl" data-aos="fade-up" data-aos-delay="400" data-aos-duration="500">
                 <div class="w-16 h-16 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
@@ -107,7 +107,7 @@
 <!-- How It Works Section -->
 <section id="how-it-works" class="section-padding bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ __('how.title') }}</h2>
         </div>
 
@@ -117,7 +117,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach (['step1','step2','step3'] as $step)
-                    <div class="relative text-center" data-aos="fade-up" data-aos-delay="{{ $loop->index * 200 }}">
+                    <div class="relative text-center" data-aos="fade-up" data-aos-delay="{{ $loop->index * 200 }}" data-aos-duration="500">
                         <div class="mx-auto w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mb-6 relative z-10 border-4 border-white">
                             <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                                 {{ __('how.' . $step . '.num') }}
@@ -136,13 +136,13 @@
 <section id="why-us" class="section-padding bg-white" style="overflow-x: hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
+            <div data-aos="fade-right" data-aos-duration="500">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{{ __('why.title') }}</h2>
                 <p class="text-lg text-gray-600 mb-8">{{ __('why.lead') }}</p>
 
                 <div class="space-y-6">
                     @foreach (['secure','verified','support','savings'] as $k)
-                        <div class="flex items-start space-x-4 rtl:space-x-reverse" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                        <div class="flex items-start space-x-4 rtl:space-x-reverse" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}" data-aos-duration="500">
                             <div class="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                                 <span class="text-indigo-600 font-bold text-xl">{{ __('why.' . $k . '.icon') }}</span>
                             </div>
@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 p-8 rounded-2xl text-white" data-aos="fade-left" data-aos-delay="300">
+            <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 p-8 rounded-2xl text-white" data-aos="fade-left" data-aos-delay="300" data-aos-duration="500">
                 <div class="text-center">
                     <h3 class="text-2xl font-bold mb-4">{{ __('quick_stats.title') }}</h3>
                     <div class="text-5xl font-bold mb-2">{{ __('quick_stats.lead') }}</div>
@@ -172,13 +172,13 @@
 <!-- Pricing Section -->
 <section id="pricing" class="section-padding bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ __('plans.title') }}</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             @foreach(['basic','standard','enterprise'] as $plan)
-                <div class="pricing-card p-8 bg-white rounded-2xl {{ $plan == 'standard' ? 'featured' : '' }}" data-aos="fade-up" data-aos-delay="{{ $loop->index * 200 }}">
+                <div class="pricing-card p-8 bg-white rounded-2xl {{ $plan == 'standard' ? 'featured' : '' }}" data-aos="fade-up" data-aos-delay="{{ $loop->index * 200 }}" data-aos-duration="500">
                     @if($plan == 'standard')
                         <div class="bg-indigo-600 text-white text-sm font-bold py-1 px-4 rounded-full inline-block mb-4">Most Popular</div>
                     @endif
@@ -218,7 +218,7 @@
 <!-- FAQ Section -->
 <section class="section-padding bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ __('faq.title') }}</h2>
         </div>
 
@@ -246,11 +246,11 @@
 <!-- Testimonials Section -->
 <section id="testimonials" class="section-padding bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ __('testimonials.title') }}</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
             @foreach(range(1,3) as $t)
                 <div class="testimonial-card p-6">
                     <div class="flex items-center mb-4">
@@ -273,11 +273,11 @@
 <!-- CTA Section -->
 <section class="py-16 bg-indigo-600">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">{{ __('cta.title') }}</h2>
-        <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up" data-aos-duration="500">{{ __('cta.title') }}</h2>
+        <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
             {{ __('cta.text') }}
         </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
             <a href="{{ route('register') }}" class="inline-flex items-center justify-center bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
                 {{ __('cta.post_tender') }}
             </a>
