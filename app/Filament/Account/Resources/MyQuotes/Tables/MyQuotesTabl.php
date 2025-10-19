@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Account\Resources\MyQuoteResource\Tables;
+namespace App\Filament\Account\Resources\MyQuotes\Tables;
 
 use App\Filament\Account\Pages\ViewTender;
 use App\Models\Quote;
@@ -8,7 +8,7 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class MyQuotesTables
+class MyQuotesTabl
 {
     public static function configure(Table $table): Table
     {

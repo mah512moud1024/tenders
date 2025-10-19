@@ -2,7 +2,7 @@
 
 namespace App\Filament\Account\Resources\MyQuotes;
 
-use App\Filament\Account\Resources\MyQuoteResource\Tables\MyQuotesTables;
+use App\Filament\Account\Resources\MyQuotes\Tables\MyQuotesTabl;
 
 use App\Models\Quote; // <-- IMPORTANT: We now use the correct model
 use Filament\Resources\Resource;
@@ -18,6 +18,7 @@ class MyQuoteResource extends Resource
     protected static ?string $model = Quote::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
 
     protected static ?string $navigationLabel = 'All Quotes';
     public static function getnavigationLabel(): string
@@ -53,6 +54,8 @@ class MyQuoteResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+
+
         // This ensures users only see their own quotes
         return parent::getEloquentQuery()->where('user_id', Auth::id());
     }
@@ -60,7 +63,7 @@ class MyQuoteResource extends Resource
     public static function table(Table $table): Table
     {
         // We will configure the table in the next step
-        return MyQuotesTables::configure($table);
+        return MyQuotesTabl::configure($table);
     }
 
     public static function getPages(): array

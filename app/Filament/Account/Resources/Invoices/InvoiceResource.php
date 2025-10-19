@@ -15,6 +15,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceResource extends Resource
 {
@@ -45,6 +47,20 @@ class InvoiceResource extends Resource
     {
         return InvoicesTable::configure($table);
     }
+
+
+    public static function getEloquentQuery(): Builder
+    {
+        if (static::canViewAny()) {
+            return parent::getEloquentQuery()
+                ->where('status', '=', 'paid')
+                ->whereHas('user', function (Builder $query) {
+                    $query->where('user_id', Auth::id());
+                });
+        }
+        return parent::getEloquentQuery()->whereNull('id'); // Return no records if not authorized
+    }
+
 
     public static function getRelations(): array
     {

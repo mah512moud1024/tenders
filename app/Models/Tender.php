@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Notifications\NewTenderAdminNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Models\User;
 class Tender extends Model
 {
     use HasFactory;
@@ -33,6 +34,20 @@ class Tender extends Model
         'building_area' => 'decimal:2',
         'land_area' => 'decimal:2',
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($tender) {
+            // Only notify admin for published tenders (not drafts)
+
+
+            $admins = User::role('admin')->get();
+                foreach ($admins as $admin) {
+                    $admin->notify(new NewTenderAdminNotification($tender, $tender->user));
+                }
+
+        });
+    }
 
     public function user()
     {

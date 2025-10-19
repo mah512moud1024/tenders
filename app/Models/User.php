@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\NewServiceProviderAdminNotification;
 use Filament\Panel;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,6 +52,24 @@ class User extends Authenticatable implements FilamentUser
         'phone_verify_code',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            // Notify admin when service providers register
+            $serviceProviderTypes = ['consultant', 'contractor', 'subcontractor', 'supplier'];
+
+            if (in_array($user->type, $serviceProviderTypes)) {
+                $admins = User::whereHas('roles', function ($query) {
+                    $query->where('name', 'admin');
+                })->get();
+
+                foreach ($admins as $admin) {
+                    $admin->notify(new NewServiceProviderAdminNotification($user));
+                }
+            }
+        });
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -85,6 +104,16 @@ class User extends Authenticatable implements FilamentUser
     public function tenders()
     {
         return $this->hasMany(Tender::class);
+    }
+
+    /**
+     * Get all admin users
+     */
+    public static function getAdmins()
+    {
+        return static::whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->get();
     }
 
     public function quotes()

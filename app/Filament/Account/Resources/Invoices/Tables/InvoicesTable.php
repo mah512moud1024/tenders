@@ -17,26 +17,17 @@ class InvoicesTable
             ->columns([
                 TextColumn::make('invoice_number')
                     ->searchable(),
-                TextColumn::make('transaction_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('issue_date')
                     ->date('d/m/Y')
                     ->sortable(),
-                TextColumn::make('due_date')
-                    ->date('d/m/Y ')
-                    ->sortable(),
                 TextColumn::make('amount')
-                    ->numeric()
+                    ->numeric(locale: 'en')
                     ->sortable(),
                 TextColumn::make('tax_amount')
-                    ->numeric()
+                    ->numeric(locale: 'en')
                     ->sortable(),
                 TextColumn::make('total_amount')
-                    ->numeric()
+                    ->numeric(locale: 'en')
                     ->sortable(),
                 TextColumn::make('status'),
                 TextColumn::make('created_at')
@@ -53,12 +44,8 @@ class InvoicesTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+
             ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+            ;
     }
 }

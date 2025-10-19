@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use App\Notifications\NewQuoteAdminNotification;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\TenderList;
 use App\Livewire\QuoteForm;
@@ -18,6 +20,17 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('language.switch');
 
+Route::get('/test-email', function () {
+    try {
+        Mail::raw('Test email from Laravel', function ($message) {
+            $message->to('mah512moud1024@gmail.com')
+                ->subject('Test Email');
+        });
+        return 'Email sent successfully!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 
 Route::view('/', 'welcome');
 
