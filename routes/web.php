@@ -20,17 +20,29 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('language.switch');
 
-Route::get('/test-email', function () {
-    try {
-        Mail::raw('Test email from Laravel', function ($message) {
-            $message->to('mah512moud1024@gmail.com')
-                ->subject('Test Email');
-        });
-        return 'Email sent successfully!';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
+Route::get('/invoices/{invoice}/download-pdf', function ($invoice) {
+    $invoice = \App\Models\Invoice::findOrFail($invoice);
+
+    $html = view('pdf.invoice', [
+        'invoice' => $invoice,
+        'company' => [
+            'name' => 'Your Company Name',
+            'address' => '123 Business Street, City, ZIP',
+            'email' => 'info@example.com',
+            'phone' => '(123) 456-7890',
+        ]
+    ])->render();
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadHTML($html)
+        ->setPaper('a4', 'portrait')
+        ->setOption('defaultFont', 'DejaVu Sans')
+        ->setOption('isHtml5ParserEnabled', true)
+        ->setOption('isRemoteEnabled', true)
+        ->setOption('chroot', base_path())
+        ->setOption('defaultEncoding', 'utf-8');
+
+    return $pdf->download("invoice-{$invoice->invoice_number}.pdf");
+})->name('invoices.download-pdf');
 
 Route::view('/', 'welcome');
 

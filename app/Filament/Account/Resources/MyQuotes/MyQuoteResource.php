@@ -2,7 +2,18 @@
 
 namespace App\Filament\Account\Resources\MyQuotes;
 
+use App\Filament\Account\Resources\MyQuotes\Pages\CreateMyQuote;
+use App\Filament\Account\Resources\MyQuotes\Pages\EditMyQuote;
+use App\Filament\Account\Resources\MyQuotes\Pages\ListMyQuotes;
+use App\Filament\Account\Resources\MyQuotes\Pages\ViewMyQuote;
+use App\Filament\Account\Resources\MyQuotes\Schemas\MyQuoteForm;
+
+use App\Filament\Account\Resources\MyQuotes\Schemas\MyQuoteInfolist;
+use App\Filament\Account\Resources\MyQuotes\Tables\MyQuotesTable;
+
+
 use App\Filament\Account\Resources\MyQuotes\Tables\MyQuotesTabl;
+use Filament\Schemas\Schema;
 
 use App\Models\Quote; // <-- IMPORTANT: We now use the correct model
 use Filament\Resources\Resource;
@@ -12,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 use BackedEnum;
 use Filament\Support\Icons\Heroicon;
+
 class MyQuoteResource extends Resource
 {
     // This is the crucial change: Pointing the resource to the Quote model
@@ -32,7 +44,10 @@ class MyQuoteResource extends Resource
     protected static ?string $slug = 'all-quotes';
 
 
-
+    public static function infolist(Schema $schema): Schema
+    {
+        return MyQuoteInfolist::configure($schema);
+    }
 
     public static function canCreate(): bool
     {
@@ -70,6 +85,7 @@ class MyQuoteResource extends Resource
     {
         return [
             'index' => Pages\ListMyQuotes::route('/'),
+            'view' => ViewMyQuote::route('/{record}'),
         ];
     }
 }

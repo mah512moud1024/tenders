@@ -13,7 +13,7 @@ class QuoteInfolist
         return $schema
             ->components([
                 TextEntry::make('tender_id')
-                    ->numeric(),
+                    ->numeric(locale: 'en'),
                 TextEntry::make('user_id')
                     ->numeric(),
                 TextEntry::make('amount')

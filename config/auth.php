@@ -69,6 +69,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        App\Services\InvoicePdfService::class,
     ],
 
     /*

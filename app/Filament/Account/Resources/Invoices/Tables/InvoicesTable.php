@@ -2,6 +2,7 @@
 
 namespace App\Filament\Account\Resources\Invoices\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -44,8 +45,16 @@ class InvoicesTable
             ])
             ->recordActions([
                 ViewAction::make(),
-
+                // Add PDF download action
+                Action::make('downloadPdf')
+                    ->label('Download')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('primary')
+                    ->button()
+                    ->url(fn ($record) => route('invoices.download-pdf', $record))
+                    ->openUrlInNewTab(),
             ])
             ;
     }
+
 }
