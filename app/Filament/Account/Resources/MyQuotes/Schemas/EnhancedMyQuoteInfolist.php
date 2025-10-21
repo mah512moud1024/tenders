@@ -1,33 +1,31 @@
 <?php
 
-namespace App\Filament\Account\Resources\Quotes\Schemas;
+namespace App\Filament\Account\Resources\MyQuotes\Schemas;
 
+use Filament\Schemas\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Actions\Action;
 use Filament\Schemas\Components\Actions;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Storage;
 
-
-class QuoteInfolist
+class EnhancedMyQuoteInfolist
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
+
+                Section::make()->schema([
                 Section::make('Quote Information')
                     ->schema([
                         TextEntry::make('tender.title')
                             ->label('Tender Title')
                             ->weight('bold')
                             ->size('lg'),
-                        TextEntry::make('user.business_name')
-                            ->label('Submitted By')
-                            ->weight('bold')
-                            ->size('lg'),
                         TextEntry::make('amount')
-                            ->money('AED')
+                            ->money('AED', locale: 'en')
+
                             ->color('success')
                             ->weight('bold')
                             ->size('lg'),
@@ -41,7 +39,7 @@ class QuoteInfolist
                                 default => 'gray',
                             }),
                     ])
-                    ->columns(2),
+                    ->columns(3),
 
                 Section::make('Quote Details')
                     ->schema([
@@ -51,19 +49,13 @@ class QuoteInfolist
                             ->markdown()
                             ->prose(),
                         TextEntry::make('created_at')
-                            ->dateTime()
+                            ->dateTime('d/m/Y')
                             ->label('Submitted Date'),
-                        TextEntry::make('updated_at')
-                            ->dateTime()
-                            ->label('Last Updated'),
-                    ])
-                    ->columns(2),
 
-                // Documents section with dynamic title
-                Section::make(function ($record) {
-                    $count = $record->documents->count();
-                    return "Attached Documents ({$count})";
-                })
+                    ])
+                    ->columns(2),]),
+
+                Section::make('Document Files')
                     ->schema([
                         \Filament\Infolists\Components\RepeatableEntry::make('documents')
                             ->schema([
@@ -76,25 +68,35 @@ class QuoteInfolist
                                     ->formatStateUsing(fn ($state) => self::formatFileSize($state)),
                                 TextEntry::make('created_at')
                                     ->label('Uploaded')
-                                    ->dateTime('M j, Y g:i A'),
+                                    ->dateTime('d/m/Y g:i A'),
                                 Actions::make([
                                     Action::make('download_document')
                                         ->label('Download')
                                         ->icon('heroicon-o-arrow-down-tray')
                                         ->color('success')
+                                        // CRITICAL CHANGE: Use ->url() to point to the secure route.
+                                        // The $record here IS the document model (App\Models\QuoteDocument).
+                                        // Filament correctly passes the item model here for URL generation.
                                         ->url(function ($component) {
                                             // This is the correct way to get the current document in RepeatableEntry
                                             $document = $component->getRecord();
                                             return route('quote.document.download', ['document' => $document->id]);
                                         })
-        ->openUrlInNewTab(),
+                                        // Optionally, add target('_blank') to download in a new tab
+                                        ->openUrlInNewTab()
+                                    // Hide the action if the file path is missing in the database
+
                                 ]),
                             ])
                             ->columns(4)
-        ->grid(1),
+                            ,
                     ])
                     ->visible(fn ($record) => $record->documents->count() > 0)
-        ->collapsible(),
+                    ->collapsible(),
+
+
+                // Documents list section
+
             ]);
     }
 

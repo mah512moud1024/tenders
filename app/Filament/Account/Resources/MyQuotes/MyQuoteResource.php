@@ -1,61 +1,53 @@
 <?php
 
 namespace App\Filament\Account\Resources\MyQuotes;
-
-use App\Filament\Account\Resources\MyQuotes\Pages\CreateMyQuote;
-use App\Filament\Account\Resources\MyQuotes\Pages\EditMyQuote;
-use App\Filament\Account\Resources\MyQuotes\Pages\ListMyQuotes;
 use App\Filament\Account\Resources\MyQuotes\Pages\ViewMyQuote;
-use App\Filament\Account\Resources\MyQuotes\Schemas\MyQuoteForm;
-
-use App\Filament\Account\Resources\MyQuotes\Schemas\MyQuoteInfolist;
-use App\Filament\Account\Resources\MyQuotes\Tables\MyQuotesTable;
-
-
-use App\Filament\Account\Resources\MyQuotes\Tables\MyQuotesTabl;
+use App\Filament\Account\Resources\MyQuotes\Schemas\EnhancedMyQuoteInfolist; // Updated this line
+use App\Filament\Account\Resources\MyQuotes\Tables\MyQuotesTables;
 use Filament\Schemas\Schema;
-
-use App\Models\Quote; // <-- IMPORTANT: We now use the correct model
+use App\Models\Quote;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-
 use BackedEnum;
 use Filament\Support\Icons\Heroicon;
 
 class MyQuoteResource extends Resource
 {
-    // This is the crucial change: Pointing the resource to the Quote model
     protected static ?string $model = Quote::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-
     protected static ?string $navigationLabel = 'All Quotes';
+
     public static function getnavigationLabel(): string
     {
         return __('All Quotes');
     }
+
     public static function getRecordTitleAttribute(): ?string
     {
         return __('All Quotes');
     }
-    protected static ?string $slug = 'all-quotes';
 
+    protected static ?string $slug = 'all-quotes';
 
     public static function infolist(Schema $schema): Schema
     {
-        return MyQuoteInfolist::configure($schema);
+        return EnhancedMyQuoteInfolist::configure($schema); // Updated this line
     }
 
     public static function canCreate(): bool
     {
-        return false; }
+        return false;
+    }
+
     public function canCreateAnother(): bool
     {
         return false;
     }
+
     public static function canEdit($record): bool
     {
         return false;
@@ -69,16 +61,12 @@ class MyQuoteResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-
-
-        // This ensures users only see their own quotes
         return parent::getEloquentQuery()->where('user_id', Auth::id());
     }
 
     public static function table(Table $table): Table
     {
-        // We will configure the table in the next step
-        return MyQuotesTabl::configure($table);
+        return MyQuotesTables::configure($table);
     }
 
     public static function getPages(): array
@@ -89,4 +77,3 @@ class MyQuoteResource extends Resource
         ];
     }
 }
-

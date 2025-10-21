@@ -17,13 +17,19 @@ class FileDownloadController extends Controller
      */
     public function downloadQuoteDocument(QuoteDocument $document)
     {
-        // Security Check: Does the logged-in user own the tender this quote belongs to?
         $tenderOwnerId = $document->quote->tender->user_id;
+        $quoteSubmitterId = $document->quote->user_id;
+        $loggedInUserId = auth()->id();
 
-        if (auth()->id() !== $tenderOwnerId) {
-            // If not, deny access.
-            abort(403, 'Unauthorized');
+        // 2. Define Authorization: Check if the logged-in user is either the Tender Owner OR the Quote Submitter
+        $isTenderOwner = $loggedInUserId === $tenderOwnerId;
+        $isQuoteSubmitter = $loggedInUserId === $quoteSubmitterId;
+
+        if (!$isTenderOwner && !$isQuoteSubmitter) {
+            // If the user is neither the owner of the tender nor the submitter of the quote, deny access.
+            abort(403, 'Unauthorized: You are neither the tender owner nor the quote submitter.');
         }
+
 
         // Check if the file actually exists in our private storage
         if (!Storage::disk('private')->exists($document->file_path)) {

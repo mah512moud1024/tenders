@@ -41,15 +41,15 @@
                 </div>
                 <div class="flex justify-between py-2 border-b">
                     <span class="text-sm text-gray-600">Subtotal (Pre-Tax):</span>
-                    <span class="text-sm font-medium text-gray-800">${{ number_format($this->record->amount, 2) }}</span>
+                    <span class="text-sm font-medium text-gray-800">AED {{ number_format($this->record->amount, 2) }}</span>
                 </div>
                 <div class="flex justify-between py-2 border-b">
                     <span class="text-sm text-gray-600">Tax Amount:</span>
-                    <span class="text-sm font-medium text-gray-800">${{ number_format($this->record->tax_amount, 2) }}</span>
+                    <span class="text-sm font-medium text-gray-800">AED {{ number_format($this->record->tax_amount, 2) }}</span>
                 </div>
                 <div class="flex justify-between py-2 border-b">
                     <span class="text-sm text-gray-600 font-bold">INVOICE TOTAL:</span>
-                    <span class="text-lg font-extrabold text-primary-600">${{ number_format($this->record->total_amount, 2) }}</span>
+                    <span class="text-lg font-extrabold text-primary-600">AED {{ number_format($this->record->total_amount, 2) }}</span>
                 </div>
             </div>
 

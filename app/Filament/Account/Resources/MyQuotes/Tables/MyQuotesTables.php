@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Filament\Account\Resources\MyQuotes\Tables;
-
 use App\Filament\Account\Pages\ViewTender;
 use App\Models\Quote;
-use Filament\Actions\Action;
+
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class MyQuotesTabl
+
+class MyQuotesTables
 {
     public static function configure(Table $table): Table
     {
@@ -21,31 +20,36 @@ class MyQuotesTabl
                     ->searchable()
                     ->sortable()
                     ->url(fn (Quote $record): string => ViewTender::getUrl(['record' => $record->tender_id])),
-
+                TextColumn::make('issue_date')
+                    ->date('d/m/Y')
+                    ->sortable(),
                 TextColumn::make('amount')
-                    ->money('SAR')
+                    ->money('AED', locale: 'en')
                     ->sortable(),
-
-                BadgeColumn::make('status')
-                    ->colors([
-                        'primary' => 'under_review',
-                        'warning' => 'submitted',
-                        'success' => 'accepted',
-                        'danger' => 'rejected',
-                    ])
-                    ->sortable(),
-
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'submitted' => 'gray',
+                        'under_review' => 'warning',
+                        'accepted' => 'success',
+                        'rejected' => 'danger',
+                        default => 'gray',
+                    }),
+                TextColumn::make('documents_count')
+                    ->label('Documents')
+                    ->counts('documents')
+                    ->badge()
+                    ->color(fn ($state) => $state > 0 ? 'primary' : 'gray'),
                 TextColumn::make('created_at')
-                    ->label('Submitted On')
                     ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->filters([
+                //
+            ])
             ->recordActions([
                 ViewAction::make(),
-                // Add PDF download action
-
-            ])
-            ->defaultSort('created_at', 'desc');
+            ]);
     }
 }

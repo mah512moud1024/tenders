@@ -22,13 +22,13 @@ class InvoicesTable
                     ->date('d/m/Y')
                     ->sortable(),
                 TextColumn::make('amount')
-                    ->numeric(locale: 'en')
+                    ->money('AED', locale: 'en')
                     ->sortable(),
                 TextColumn::make('tax_amount')
-                    ->numeric(locale: 'en')
+                    ->money('AED', locale: 'en')
                     ->sortable(),
                 TextColumn::make('total_amount')
-                    ->numeric(locale: 'en')
+                    ->money('AED', locale: 'en')
                     ->sortable(),
                 TextColumn::make('status'),
                 TextColumn::make('created_at')

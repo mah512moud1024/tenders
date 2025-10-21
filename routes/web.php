@@ -58,6 +58,20 @@ Route::get('/documents/quote/{document}/download', [FileDownloadController::clas
     ->middleware(['auth'])
     ->name('quote.document.download');
 
+// Add this route for document downloads
+Route::get('/quote-documents/{quoteDocument}/download', function (\App\Models\QuoteDocument $quoteDocument) {
+    // Check if the user owns this quote
+    if (auth()->id() !== $quoteDocument->quote->user_id) {
+        abort(403, 'Unauthorized action.');
+    }
+
+    if (!Storage::exists($quoteDocument->file_path)) {
+        abort(404, 'File not found.');
+    }
+
+    return Storage::download($quoteDocument->file_path, $quoteDocument->original_name);
+})->name('quote-documents.download')->middleware(['auth']);
+
 Route::get('/tenders', TenderList::class)->middleware(['auth'])->name('tenders.index');
 
 //// Tender detail page (optional)
