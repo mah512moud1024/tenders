@@ -15,4 +15,9 @@ class CreateTender extends CreateRecord
 
         return $data;
     }
+
+    public function canCreateAnother(): bool
+    {
+        return false;
+    }
 }

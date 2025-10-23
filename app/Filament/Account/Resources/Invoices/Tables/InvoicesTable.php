@@ -30,16 +30,9 @@ class InvoicesTable
                 TextColumn::make('total_amount')
                     ->money('AED', locale: 'en')
                     ->sortable(),
-                TextColumn::make('status'),
-                TextColumn::make('created_at')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+                TextColumn::make('status')
+                    ->badge(),
+            ])->defaultSort('issue_date', 'desc')
             ->filters([
                 //
             ])

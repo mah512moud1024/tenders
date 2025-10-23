@@ -45,6 +45,8 @@ class TenderResource extends Resource
         return $userType === 'client' || $userType === 'consultant' || $userType === 'admin';
     }
 
+
+
     /**
      * This function scopes the query to only show tenders created by the logged-in user.
      * It also prevents an error for non-authorized users trying to access the panel.

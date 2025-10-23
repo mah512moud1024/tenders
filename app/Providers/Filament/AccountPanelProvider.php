@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\AdvertisingSlider;
+use App\Filament\Widgets\QuickActions;
+use App\Filament\Widgets\RecentActivity;
+use App\Filament\Widgets\StatsOverview;
+use App\Filament\Widgets\WelcomeMessage;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -21,6 +26,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Actions\Action;
 class AccountPanelProvider extends PanelProvider
 {
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -50,12 +56,16 @@ class AccountPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Account/Resources'), for: 'App\Filament\Account\Resources')
             ->discoverPages(in: app_path('Filament/Account/Pages'), for: 'App\Filament\Account\Pages')
             ->pages([
-                Dashboard::class,
+
             ])
             ->discoverWidgets(in: app_path('Filament/Account/Widgets'), for: 'App\Filament\Account\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                StatsOverview::class,
+                RecentActivity::class,
+                QuickActions::class,
+
+                // Keep your existing widgets
+
             ])
             ->middleware([
                 EncryptCookies::class,

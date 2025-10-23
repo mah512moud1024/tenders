@@ -8,3 +8,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.custom-rich-editor .ProseMirror {
+    min-height: 200px  !important;
+}

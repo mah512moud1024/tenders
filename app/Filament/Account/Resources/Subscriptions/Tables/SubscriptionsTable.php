@@ -26,22 +26,17 @@ class SubscriptionsTable
                 TextColumn::make('ends_at')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('trial_ends_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('remaining_quotes')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('status'),
-                TextColumn::make('created_at')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'canceled' => 'gray',
+                        'pending' => 'warning',
+                        'active' => 'success',
+                        'expired' => 'danger',
+                    }),
+
+            ])->defaultSort('starts_at', 'desc')
             ->filters([
                 //
             ]);

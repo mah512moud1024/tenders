@@ -40,11 +40,8 @@ class MyQuotesTables
                     ->counts('documents')
                     ->badge()
                     ->color(fn ($state) => $state > 0 ? 'primary' : 'gray'),
-                TextColumn::make('created_at')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
