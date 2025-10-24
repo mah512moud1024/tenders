@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'type' => 'admin',
             'approved' => true,
+            'city_id' => City::inRandomOrder()->first()?->id,
             'email_verified_at' => now(),
         ]);
         $admin->assignRole('admin');

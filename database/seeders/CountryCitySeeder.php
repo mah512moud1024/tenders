@@ -11,25 +11,18 @@ class CountryCitySeeder extends Seeder
     public function run()
     {
         // Create countries
-        $countries = [
-            ['name' => 'United Arab Emirates', 'code' => 'AE', 'currency' => 'AED', 'active' => true],
-
-        ];
-
-        foreach ($countries as $countryData) {
-            Country::create($countryData);
-        }
+        $country = Country::create(['name' => 'United Arab Emirates']);
 
 
 
         // Create cities for UAE
-        $uaeCities = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Fujairah'];
+        $uaeCities = [ 'Abu Dhabi', 'Dubai', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain',];
         $uae = Country::where('code', 'AE')->first();
 
         foreach ($uaeCities as $cityName) {
             City::create([
                 'name' => $cityName,
-                'country_id' => $uae->id,
+                'country_id' => $country->id,
                 'active' => true
             ]);
         }
