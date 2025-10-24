@@ -50,6 +50,7 @@ class User extends Authenticatable implements FilamentUser
         'approved',
         'phone_verified_at',
         'phone_verify_code',
+        'city_id',
     ];
 
     protected static function booted()

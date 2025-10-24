@@ -114,7 +114,7 @@ class ViewQuote extends ViewRecord
                 'quote_total_value' => $quote->amount,
 
                 // Additional fields
-                'currency' => 'SAR',
+                'currency' => 'AED',
                 'payment_terms' => 'Commission payable within 30 days of quote acceptance',
             ]);
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -31,6 +32,13 @@ new #[Layout('components.public-layout')] class extends Component
     public string $officeAddress = '';
     public $tradingLicense; // File upload
     public string $licenseExpiry = '';
+    public $city_id = '';
+    public $cities = [];
+
+    public function mount()
+    {
+        $this->cities = City::where('active', true)->get();
+    }
 
     /**
      * Define the validation rules.
@@ -53,6 +61,7 @@ new #[Layout('components.public-layout')] class extends Component
                 'officeAddress' => ['required', 'string'],
                 'licenseExpiry' => ['required', 'date'],
                 'tradingLicense' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:10240'], // 10MB Max
+                'city_id' => ['required', 'exists:cities,id'],
             ]);
         }
 
@@ -95,6 +104,7 @@ new #[Layout('components.public-layout')] class extends Component
                 'office_address' => $this->officeAddress,
                 'license_expiry' => $this->licenseExpiry,
                 'trading_license' => $licensePath,
+                'city_id' => $this->city_id, // Add city_id
                 'approved' => false, // Businesses need approval
             ]);
         } else {
@@ -114,7 +124,7 @@ new #[Layout('components.public-layout')] class extends Component
 
 <div>
     <!-- Hero Section for Registration -->
-    <section class="bg-[#1010100d] pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+    <section class="bg-[#f3f3f3] pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         <div style="
             background-image: url('{{ asset('bg-top-lines.svg') }}');
             background-repeat: no-repeat;
@@ -124,10 +134,10 @@ new #[Layout('components.public-layout')] class extends Component
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                        Join Our <span class="text-indigo-600">Platform</span>
+                        {{__('Join Our')}} <span class="text-indigo-600">{{__('Platform')}}</span>
                     </h1>
                     <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                        Create your account and start connecting with trusted construction partners in the UAE
+                        {{__('Create your account and start connecting with trusted construction partners in the UAE')}}
                     </p>
                 </div>
             </div>
@@ -168,7 +178,7 @@ new #[Layout('components.public-layout')] class extends Component
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
                                 </svg>
-                                {{ __('Business') }}
+                                {{ __('company') }}
                             </button>
                         </div>
 
@@ -222,6 +232,24 @@ new #[Layout('components.public-layout')] class extends Component
                         <!-- Business-Only Fields -->
                         @if ($userType === 'business')
                             <div class="pt-6 mt-6 border-t border-gray-200 space-y-6" wire:key="business-fields">
+                                <!-- Add this city selection field -->
+                                <div class="space-y-2">
+                                    <label for="city_id" class="text-sm font-medium text-gray-700 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                        </svg>
+                                        {{ __('City') }}
+                                    </label>
+                                    <select wire:model="city_id" id="city_id" name="city_id" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                        <option value="">{{ __('Select City') }}</option>
+                                        @foreach($cities as $city)
+                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('city_id')" class="mt-2" />
+                                </div>
+
+                                <!-- Rest of existing business fields... -->
                                 <div class="space-y-2">
                                     <label for="businessType" class="text-sm font-medium text-gray-700 flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
@@ -351,9 +379,9 @@ new #[Layout('components.public-layout')] class extends Component
                 <div class="space-y-6" >
                     <div class="bg-gradient-to-br from-indigo-500 to-indigo-700 p-8 rounded-2xl text-white">
                         <div class="text-center">
-                            <h3 class="text-2xl font-bold mb-4">Why Join Our Platform?</h3>
+                            <h3 class="text-2xl font-bold mb-4">{{__('Why Join Our Platform?')}}</h3>
                             <div class="text-5xl font-bold mb-2">1000+</div>
-                            <p class="text-indigo-100 mb-6">Active Companies</p>
+                            <p class="text-indigo-100 mb-6">{{__('Active Companies')}}</p>
                         </div>
                     </div>
 
@@ -369,8 +397,8 @@ new #[Layout('components.public-layout')] class extends Component
                                     <span class="text-indigo-600 font-bold">{{ $benefit['icon'] }}</span>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-bold text-gray-900 mb-1">{{ $benefit['title'] }}</h4>
-                                    <p class="text-gray-600">{{ $benefit['text'] }}</p>
+                                    <h4 class="text-lg font-bold text-gray-900 mb-1">{{__($benefit['title'])  }}</h4>
+                                    <p class="text-gray-600">{{__($benefit['text'] ) }}</p>
                                 </div>
                             </div>
                         @endforeach
@@ -383,16 +411,18 @@ new #[Layout('components.public-layout')] class extends Component
     <!-- CTA Section -->
     <section class="py-16 bg-indigo-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                {{__('Ready to Get Started?')}}
+            </h2>
             <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
-                Join thousands of companies already using our platform to find the perfect partners for their projects.
+                {{__('Join thousands of companies already using our platform to find the perfect partners for their projects.?')}}
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="{{ route('login') }}" class="inline-flex items-center justify-center bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
-                    Sign In to Your Account
+                    {{__('Sign In to Your Account')}}
                 </a>
                 <a href="#home" class="inline-flex items-center justify-center bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
-                    Learn More
+                    {{__('Learn More')}}
                 </a>
             </div>
         </div>

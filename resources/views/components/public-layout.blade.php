@@ -265,30 +265,29 @@
                         <span class="self-center text-2xl font-bold">{{ config('app.name', 'Tenders Platform') }}</span>
                     </a>
                     <p class="text-gray-400 max-w-md">
-                        The leading platform for construction tenders in the UAE. Connect with verified contractors and streamline your project bidding process.
+                        {{__('The leading platform for construction tenders in the UAE. Connect with verified contractors and streamline your project bidding process.')}}
                     </p>
                 </div>
 
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <h3 class="text-lg font-semibold mb-4">{{__('Resources')}}</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">{{__('About Us')}}</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">{{__('Contact')}}</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <h3 class="text-lg font-semibold mb-4">{{__('Legal')}}</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">{{__('Privacy Policy')}}</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">{{__('Terms & Conditions')}}</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>© {{ date('Y') }} {{ config('app.name', 'Tenders Platform') }}. All rights reserved.</p>
+                <p>© {{ date('Y') }} {{ config('app.name', 'Tenders Platform') }}. {{__('All rights reserved.')}}</p>
             </div>
         </div>
     </footer>

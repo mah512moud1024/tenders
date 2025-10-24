@@ -119,7 +119,7 @@
     "AED": "AED",
     "amount": "amount",
     "All Quotes": "All Quotes",
-    "Invoice":"الفواتير",
+    "Invoice":"Invoice",
     "Contract":"Contract",
     "Received Quotes": "Received Quotes",
     "Subscription": "My Subscription",
@@ -128,7 +128,7 @@
     "Browse Tenders": "Browse Tenders",
     "Subscription plans": "Subscription plans"
 
-
+{{__('All rights reserved.')}}
 
 
 

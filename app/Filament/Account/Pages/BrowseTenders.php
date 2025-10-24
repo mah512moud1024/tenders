@@ -1,5 +1,5 @@
 <?php
-
+// [file name]: BrowseTenders.php
 namespace App\Filament\Account\Pages;
 
 use Filament\Pages\Page;
@@ -18,22 +18,20 @@ class BrowseTenders extends Page
     {
         return __('Browse Tenders');
     }
+
     public static function getRecordTitleAttribute(): ?string
     {
         return __('Browse Tenders');
     }
+
     public function getTitle(): string
     {
-        return __('Browse Tenders');
+        return __('');
     }
+
     public static function canAccess(): bool
     {
         $user = Auth::user();
-
-        // Check if the user is not a client and their account is approved.
         return $user->type !== 'client' && $user->approved;
     }
-
 }
-
-

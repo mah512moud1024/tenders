@@ -30,7 +30,7 @@ class QuoteStatusChangedNotification extends Notification implements ShouldQueue
             ->greeting('Hello ' . $notifiable->first_name . '!')
             ->line('The status of your quote has been updated:')
             ->line('**Tender:** ' . $this->quote->tender->title)
-            ->line('**Quote Amount:** SAR ' . number_format($this->quote->amount, 2))
+            ->line('**Quote Amount:** AED ' . number_format($this->quote->amount, 2))
             ->line('**Previous Status:** ' . ucfirst(str_replace('_', ' ', $this->oldStatus)))
             ->line('**Current Status:** ' . ucfirst(str_replace('_', ' ', $this->newStatus)));
 

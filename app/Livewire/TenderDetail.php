@@ -1,5 +1,5 @@
 <?php
-
+// [file name]: TenderDetail.php
 namespace App\Livewire;
 
 use App\Models\Quote;
@@ -23,12 +23,11 @@ class TenderDetail extends Component implements HasForms, HasActions
     use InteractsWithForms;
 
     public Tender $tender;
-    public bool $hasAlreadyQuoted = false; // New property to track submission status
+    public bool $hasAlreadyQuoted = false;
 
     public function mount(Tender $tender): void
     {
         $this->tender = $tender;
-        // Check if the authenticated user has already submitted a quote for this tender
         if (Auth::check()) {
             $this->hasAlreadyQuoted = Quote::where('tender_id', $this->tender->id)
                 ->where('user_id', Auth::id())
@@ -36,24 +35,18 @@ class TenderDetail extends Component implements HasForms, HasActions
         }
     }
 
-    // This is the new method that your Blade file is looking for.
     public function submitQuoteAction(): Action
     {
         return Action::make('submitQuote')
             ->label(function (): string {
-
-                // Conditionally set the label based on the same condition
-                if ($this->hasAlreadyQuoted || !Auth::user() || !Auth::user()->canSubmitQuote() || !$this->isUserAuthorizedToBid()) { // Your condition to disable the button
+                if ($this->hasAlreadyQuoted || !Auth::user() || !Auth::user()->canSubmitQuote() || !$this->isUserAuthorizedToBid()) {
                     return 'Already submitted';
                 }
                 return 'Submit Quote';
             })
-
             ->button()
             ->color(function (): string {
-
-                // Conditionally set the label based on the same condition
-                if ($this->hasAlreadyQuoted || !Auth::user() || !Auth::user()->canSubmitQuote() || !$this->isUserAuthorizedToBid()) { // Your condition to disable the button
+                if ($this->hasAlreadyQuoted || !Auth::user() || !Auth::user()->canSubmitQuote() || !$this->isUserAuthorizedToBid()) {
                     return 'info';
                 }
                 return 'primary';
@@ -61,10 +54,10 @@ class TenderDetail extends Component implements HasForms, HasActions
             ->modalHeading('Submit Your Quote for: ' . $this->tender->title)
             ->form([
                 TextInput::make('amount')
-                    ->label('Quote Amount (SAR)')
+                    ->label('Quote Amount (AED)')
                     ->numeric()
                     ->required()
-                    ->prefix('SAR'),
+                    ->prefix('AED'),
                 Textarea::make('proposal')
                     ->label('Proposal Details')
                     ->required()
@@ -75,8 +68,8 @@ class TenderDetail extends Component implements HasForms, HasActions
                     ->label('Supporting Documents')
                     ->multiple()
                     ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                    ->maxSize(10240) // 10MB
-                    ->directory('private/quote-documents') // Store securely
+                    ->maxSize(10240)
+                    ->directory('private/quote-documents')
             ])
             ->action(function (array $data) {
                 $user = Auth::user();
@@ -106,12 +99,9 @@ class TenderDetail extends Component implements HasForms, HasActions
                     ->success()
                     ->send();
 
-                // Redirect back to the main tenders list after submission
                 return redirect(route('filament.account.pages.browse-tenders'));
             })
-            // This disables the button if the user is not authorized
-            ->disabled(fn(): bool =>  $this->hasAlreadyQuoted || !Auth::user() || !Auth::user()->canSubmitQuote() || !$this->isUserAuthorizedToBid())
-            // This provides a helpful description inside the modal
+            ->disabled(fn(): bool => $this->hasAlreadyQuoted || !Auth::user() || !Auth::user()->canSubmitQuote() || !$this->isUserAuthorizedToBid())
             ->modalDescription(function () {
                 if ($this->hasAlreadyQuoted) {
                     return 'You have already submitted a quote for this tender.';
@@ -126,7 +116,6 @@ class TenderDetail extends Component implements HasForms, HasActions
             });
     }
 
-    // Helper function to check user's role against the tender type
     private function isUserAuthorizedToBid(): bool
     {
         $user = Auth::user();
@@ -142,10 +131,23 @@ class TenderDetail extends Component implements HasForms, HasActions
         return $user->hasRole($requiredRole);
     }
 
-
     public function render()
     {
-        return view('livewire.tender-detail');
+        $tenderTypes = [
+            'design' => 'Design',
+            'construction' => 'Construction',
+            'supply' => 'Supply',
+        ];
+
+        $workTypes = [
+            'maintenance' => 'Maintenance',
+            'new_construction' => 'New Construction',
+            'completion' => 'Completion',
+        ];
+
+        return view('livewire.tender-detail', [
+            'tenderTypes' => $tenderTypes,
+            'workTypes' => $workTypes,
+        ]);
     }
 }
-

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('trading_license')->nullable(); // File path
             $table->timestamp('license_expiry')->nullable();
             $table->boolean('approved')->default(false);
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
 

@@ -32,7 +32,6 @@ class AccountPanelProvider extends PanelProvider
         return $panel
             ->id('account')
             ->path('account')
-            ->profile()
             ->colors([
                 'primary' => [
                     50 => '#eef2ff',

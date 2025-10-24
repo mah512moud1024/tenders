@@ -16,10 +16,10 @@ class QuoteFormComponent extends Component
         return Grid::make(1)
             ->schema([
                 TextInput::make('amount')
-                    ->label('Quote Amount (SAR)')
+                    ->label('Quote Amount (AED)')
                     ->numeric()
                     ->required()
-                    ->prefix('SAR'),
+                    ->prefix('AED'),
 
                 Textarea::make('proposal')
                     ->label('Proposal Details')
