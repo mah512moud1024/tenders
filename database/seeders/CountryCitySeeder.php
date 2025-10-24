@@ -11,7 +11,7 @@ class CountryCitySeeder extends Seeder
     public function run()
     {
         // Create countries
-        $country = Country::create(['name' => 'United Arab Emirates']);
+        $country = Country::create(['name' => 'United Arab Emirates' ,'code' => 'AE' , 'currency' => 'AED' , 'active' => true , 'created_at' => now(), 'updated_at' => now()]);
 
 
 
