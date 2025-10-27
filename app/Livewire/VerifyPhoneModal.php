@@ -53,10 +53,11 @@ class VerifyPhoneModal extends Component
         }
 
         // Check if the code is incorrect
-        if ($this->code !== (string) $correctCode) {
-            session(['verify_attempts' => $attempts + 1]);
-            $remaining = 2 - $attempts;
-            $this->error = "Incorrect code. You have {$remaining} attempt(s) remaining.";
+        $phone = session('registration_data.phone');
+        $verified = app(TwilioService::class)->checkVerificationCode($phone, $this->code);
+
+        if (!$verified) {
+            $this->error = 'Invalid verification code. Please try again.';
             return;
         }
 
@@ -85,7 +86,7 @@ class VerifyPhoneModal extends Component
         Auth::login($user);
 
         // Redirect to the dashboard
-        return redirect()->route('dashboard');
+        return redirect()->route('filament.account.pages.dashboard');
     }
 
     public function resendCode()

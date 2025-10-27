@@ -80,7 +80,7 @@ new #[Layout('components.public-layout')] class extends Component
         // Use the Twilio Service to send the SMS  $smsSent = app(TwilioService::class)->sendSms($this->phone, $message);
 
 
-        $smsSent = app(TwilioService::class)->sendSms('+18777804236' , $message);
+        $smsSent = app(TwilioService::class)->sendVerificationCode($this->phone);
         if (!$smsSent) {
             $this->addError('phone', 'We could not send a verification code to this number. Please check it and try again.');
             return;
