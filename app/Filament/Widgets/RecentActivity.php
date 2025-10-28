@@ -16,7 +16,7 @@ class RecentActivity extends BaseWidget
         'md' => 2,      // 2 columns on medium screens
         'sm' => 1,      // 2 columns on small screens (mobile)
     ];
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
 
     public function table(Table $table): Table
     {

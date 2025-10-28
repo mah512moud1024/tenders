@@ -10,7 +10,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 3;
     protected array|int|null $columns = [
         'default' => 2, // 4 columns on large screens
         'lg'=>4,

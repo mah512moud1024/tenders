@@ -2,21 +2,22 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Widgets\Widget;
-class QuickActions extends Widget
+use Filament\Widgets\TableWidget as BaseWidget;
+class QuickActions extends BaseWidget
 {
 
-
+    protected int | string | array $columnSpan =[
+        'default' => 2, // 4 columns on large screens
+        'lg'=>1,
+        'md' => 2,      // 2 columns on medium screens
+        'sm' => 1,      // 2 columns on small screens (mobile)
+    ];
+    protected static ?int $sort = 4;
 
     protected  string $view = 'filament.widgets.quick-actions';
 
-    protected static ?int $sort = 4;
-    protected array|string|int $columnSpan =[
-        'default' => 1,
-        'lg'=>1,
-        'md' => 1,      // 2 columns on medium screens
-        'sm' => 1,      // 2 columns on small screens (mobile)
-    ];
+
+
 
 
 

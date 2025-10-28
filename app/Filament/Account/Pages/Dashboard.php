@@ -13,7 +13,7 @@ class Dashboard extends BaseDashboard
     {
         // You can keep this, but since we are overriding the view,
         // it may not have an effect on your custom layout.
-        return 2;
+        return 1;
     }
 
     // You can now remove the getWidgets() method if you added it previously.
