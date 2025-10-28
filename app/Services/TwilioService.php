@@ -43,7 +43,7 @@ class TwilioService
     }
 
     /**
-     * ✅ Send a verification code via Verify API
+     * ✅ Send a verification code via Verify API (SMS ONLY - WhatsApp disabled)
      */
     public function sendVerificationCode($to)
     {

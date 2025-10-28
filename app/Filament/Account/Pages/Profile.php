@@ -30,7 +30,10 @@ class Profile extends Page
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
     protected  string $view = 'filament.account.pages.profile';
-    protected static ?string $navigationLabel = 'Profile';
+    public static function getnavigationLabel(): string
+    {
+        return __('Profile');
+    }
     protected static ?string $title = 'Profile Settings';
     protected static ?int $navigationSort = 10;
 

@@ -1,5 +1,5 @@
 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{__('Quick Actions')}}</h3>
 
     <div class="grid grid-cols-2 gap-4">
         <!-- Browse Tenders -->
@@ -13,8 +13,8 @@
                 </svg>
             </div>
             <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-300">Browse Tenders</h4>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Find new projects</p>
+                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-300">{{__('Browse Tenders')}}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{__('Find new projects')}}</p>
             </div>
         </a>
 
@@ -29,8 +29,8 @@
                 </svg>
             </div>
             <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-300">Submit Quote</h4>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Apply for tenders</p>
+                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-green-700 dark:group-hover:text-green-300">{{__('Submit Quote')}}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{__('Apply for tenders')}}</p>
             </div>
         </a>
 
@@ -45,8 +45,8 @@
                 </svg>
             </div>
             <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">View Invoices</h4>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Manage payments</p>
+                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-300">{{__('View Invoices')}}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{__('Manage payments')}}</p>
             </div>
         </a>
 
@@ -61,8 +61,8 @@
                 </svg>
             </div>
             <div>
-                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300">Your Profile</h4>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Update information</p>
+                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-purple-700 dark:group-hover:text-purple-300">{{__('Your Profile')}}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{__('Update information')}}</p>
             </div>
         </a>
     </div>

@@ -3,6 +3,7 @@
         timer: null,
         expiresAt: @entangle('expiresAt'),
         countdown: 60,
+        canResend: @entangle('canResend'),
         init() {
             this.$watch('show', value => {
                 if (value) {
@@ -10,6 +11,11 @@
                 } else {
                     clearInterval(this.timer);
                 }
+            });
+
+            // Listen for code resent event
+            this.$wire.on('code-resent', () => {
+                this.startCountdown();
             });
         },
         startCountdown() {
@@ -24,8 +30,13 @@
             const now = Math.floor(Date.now() / 1000);
             const remaining = this.expiresAt - now;
             this.countdown = remaining > 0 ? remaining : 0;
+
+            // Update canResend when countdown finishes
             if (this.countdown <= 0) {
+                this.canResend = true;
                 clearInterval(this.timer);
+            } else {
+                this.canResend = false;
             }
         }
      }"
@@ -96,7 +107,6 @@
                     <p class="text-sm text-center text-green-600 dark:text-green-400">{{ session('status') }}</p>
                 @endif
 
-
                 <div class="pt-4 space-y-3">
                     <x-primary-button class="w-full justify-center" x-bind:disabled="countdown <= 0">
                         {{ __('Verify Account') }}
@@ -104,7 +114,8 @@
 
                     <button type="button"
                             wire:click="resendCode"
-                            class="w-full text-sm font-medium text-center text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
+                            x-bind:disabled="!canResend"
+                            class="w-full text-sm font-medium text-center text-primary-600 hover:text-primary-500 disabled:text-gray-400 disabled:cursor-not-allowed dark:text-primary-400 dark:hover:text-primary-300"
                             x-show="countdown <= 0">
                         {{ __("Request a new code") }}
                     </button>
@@ -117,4 +128,3 @@
         </div>
     </div>
 </div>
-

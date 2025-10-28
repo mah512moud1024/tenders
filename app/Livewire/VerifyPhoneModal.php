@@ -15,13 +15,22 @@ class VerifyPhoneModal extends Component
     public string $code = '';
     public ?string $error = null;
     public ?int $expiresAt = null;
+    public bool $canResend = false;
 
     #[On('open-verify-modal')]
     public function openModal()
     {
         $this->reset(['code', 'error']);
-        // Set the expiry timestamp for the countdown timer in the view
-        $this->expiresAt = session('code_expires_at') ? session('code_expires_at')->timestamp : null;
+
+        // Check if we're in a cooldown period
+        $cooldownUntil = session('resend_cooldown_until');
+        if ($cooldownUntil && now()->lessThan($cooldownUntil)) {
+            $this->expiresAt = $cooldownUntil->timestamp;
+        } else {
+            $this->expiresAt = session('code_expires_at') ? session('code_expires_at')->timestamp : null;
+        }
+
+        $this->canResend = $this->checkIfCanResend();
         $this->showModal = true;
     }
 
@@ -57,7 +66,15 @@ class VerifyPhoneModal extends Component
         $verified = app(TwilioService::class)->checkVerificationCode($phone, $this->code);
 
         if (!$verified) {
-            $this->error = 'Invalid verification code. Please try again.';
+            // Increment attempts
+            session(['verify_attempts' => $attempts + 1]);
+
+            $remainingAttempts = 3 - ($attempts + 1);
+            if ($remainingAttempts > 0) {
+                $this->error = "Invalid verification code. You have {$remainingAttempts} " . ($remainingAttempts === 1 ? 'attempt' : 'attempts') . " remaining.";
+            } else {
+                $this->error = 'You have exceeded the maximum number of attempts. Please request a new code.';
+            }
             return;
         }
 
@@ -80,7 +97,14 @@ class VerifyPhoneModal extends Component
         }
 
         // Clean up all the temporary session data
-        session()->forget(['registration_data', 'verification_code', 'code_expires_at', 'verify_attempts']);
+        session()->forget([
+            'registration_data',
+            'verification_code',
+            'code_expires_at',
+            'verify_attempts',
+            'resend_attempts',
+            'resend_cooldown_until'
+        ]);
 
         event(new Registered($user));
         Auth::login($user);
@@ -91,7 +115,14 @@ class VerifyPhoneModal extends Component
 
     public function resendCode()
     {
-        $newCode = random_int(100000, 999999);
+        // Check cooldown period
+        $cooldownUntil = session('resend_cooldown_until');
+        if ($cooldownUntil && now()->lessThan($cooldownUntil)) {
+            $remainingSeconds = now()->diffInSeconds($cooldownUntil, false);
+            $this->error = "Please wait {$remainingSeconds} seconds before requesting a new code.";
+            return;
+        }
+
         $phone = session('registration_data.phone');
 
         if (!$phone) {
@@ -99,26 +130,67 @@ class VerifyPhoneModal extends Component
             return;
         }
 
-        $message = "Your new verification code is: {$newCode}";
-        app(TwilioService::class)->sendSms($phone, $message);
+        // Use Twilio Verify API instead of direct SMS
+        $success = app(TwilioService::class)->sendVerificationCode($phone);
+
+        if (!$success) {
+            $this->error = 'Failed to send verification code. Please try again.';
+            return;
+        }
+
+        // Increment resend attempts and calculate cooldown
+        $resendAttempts = session('resend_attempts', 0) + 1;
+        $cooldownSeconds = $this->calculateCooldown($resendAttempts);
 
         // Reset the session values for the new code
         session([
-            'verification_code' => $newCode,
             'code_expires_at' => now()->addSeconds(60),
             'verify_attempts' => 0,
+            'resend_attempts' => $resendAttempts,
+            'resend_cooldown_until' => now()->addSeconds($cooldownSeconds),
         ]);
 
         // Update the countdown timer on the front-end
         $this->expiresAt = now()->addSeconds(60)->timestamp;
+        $this->canResend = false;
         $this->reset('error');
         session()->flash('status', 'A new verification code has been sent.');
+
+        // Dispatch event to restart countdown
+        $this->dispatch('code-resent');
+    }
+
+    private function calculateCooldown(int $attempts): int
+    {
+        return match($attempts) {
+            1, 2, 3 => 0,        // No cooldown for first 3 attempts
+            4, 5 => 300,         // 5 minutes for attempts 4-5
+            6, 7 => 900,         // 15 minutes for attempts 6-7
+            default => 3600,     // 1 hour for 8+ attempts
+        };
+    }
+
+    private function checkIfCanResend(): bool
+    {
+        $cooldownUntil = session('resend_cooldown_until');
+        $codeExpiresAt = session('code_expires_at');
+
+        // Can resend if no cooldown AND code is expired
+        return (!$cooldownUntil || now()->greaterThan($cooldownUntil)) &&
+            (!$codeExpiresAt || now()->greaterThan($codeExpiresAt));
     }
 
     public function closeModal()
     {
         // Allow user to close the modal and start over
-        session()->forget(['registration_data', 'verification_code', 'code_expires_at', 'verify_attempts']);
+        session()->forget([
+            'registration_data',
+            'verification_code',
+            'code_expires_at',
+            'verify_attempts',
+            'resend_attempts',
+            'resend_cooldown_until'
+        ]);
         $this->showModal = false;
     }
 
