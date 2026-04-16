@@ -50,7 +50,7 @@ class SubscriptionsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultSort('status', 'desc')
             ->filters([
                 //
             ])

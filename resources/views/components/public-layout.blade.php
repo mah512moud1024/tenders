@@ -227,12 +227,12 @@
             <!-- Mobile Menu -->
             <div x-show="open" class="lg:hidden py-4 border-t border-gray-200" x-cloak>
                 <div class="flex flex-col space-y-4">
-                    <a href="#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Home</a>
-                    <a href="#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">About</a>
-                    <a href="#how-it-works" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">How It Works</a>
-                    <a href="#why-us" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Why Us</a>
-                    <a href="#pricing" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Pricing</a>
-                    <a href="#testimonials" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">Testimonials</a>
+                    <a href="#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
+                    <a href="#how-it-works" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
+                    <a href="#why-us" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="#pricing" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
+                    <a href="#testimonials" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
 
                     <div class="pt-4 border-t border-gray-200">
                         @auth

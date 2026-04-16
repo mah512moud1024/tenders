@@ -13,19 +13,19 @@ class InvoiceInfolist
             ->components([
                 TextEntry::make('invoice_number'),
                 TextEntry::make('transaction_id')
-                    ->numeric(),
+                    ->numeric(locale: 'en'),
                 TextEntry::make('user_id')
-                    ->numeric(),
+                    ->numeric(locale: 'en'),
                 TextEntry::make('issue_date')
                     ->date(),
                 TextEntry::make('due_date')
                     ->date(),
                 TextEntry::make('amount')
-                    ->numeric(),
+                    ->numeric(locale: 'en'),
                 TextEntry::make('tax_amount')
-                    ->numeric(),
+                    ->numeric(locale: 'en'),
                 TextEntry::make('total_amount')
-                    ->numeric(),
+                    ->numeric(locale: 'en'),
                 TextEntry::make('status'),
                 TextEntry::make('created_at')
                     ->dateTime(),

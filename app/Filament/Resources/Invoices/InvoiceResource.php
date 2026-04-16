@@ -15,6 +15,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceResource extends Resource
 {
@@ -23,7 +25,14 @@ class InvoiceResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedReceiptRefund;
 
     protected static ?string $recordTitleAttribute = 'Invoice';
-
+    public static function getnavigationLabel(): string
+    {
+        return __('Invoice');
+    }
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return __('Invoice');
+    }
     public static function form(Schema $schema): Schema
     {
         return InvoiceForm::configure($schema);
@@ -38,6 +47,10 @@ class InvoiceResource extends Resource
     {
         return InvoicesTable::configure($table);
     }
+
+
+
+
 
     public static function getRelations(): array
     {

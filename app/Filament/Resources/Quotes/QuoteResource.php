@@ -22,7 +22,13 @@ class QuoteResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static ?string $recordTitleAttribute = 'Quote';
+    protected static ?string $recordTitleAttribute = 'id';
+
+    protected static ?string $navigationLabel = 'Quotes';
+
+    protected static ?string $modelLabel = 'quote';
+
+    protected static ?string $pluralModelLabel = 'quotes';
 
     public static function form(Schema $schema): Schema
     {

@@ -29,17 +29,30 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => [
+                    50 => '#eef2ff',
+                    100 => '#e0e7ff',
+                    200 => '#c7d2fe',
+                    300 => '#a5b4fc',
+                    400 => '#818cf8',
+                    500 => '#6366f1', // Main indigo
+                    600 => '#4f46e5',
+                    700 => '#4338ca',
+                    800 => '#3730a3',
+                    900 => '#312e81',
+                    950 => '#1e1b4b',
+                ],
+
             ])
+            ->viteTheme('resources/css/app.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/admin/Widgets'), for: 'App\Filament\admin\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,

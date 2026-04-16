@@ -15,56 +15,89 @@ class TenderForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->required(),
+                    ->label(__('Title'))
+                    ->required()
+                    ->maxLength(255),
                 Textarea::make('description')
+                    ->label(__('Description'))
                     ->default(null)
                     ->columnSpanFull(),
-                TextInput::make('user_id')
+                Select::make('user_id')
+                    ->label(__('Client'))
+                    ->relationship('user', 'first_name')
                     ->required()
-                    ->numeric(),
-                TextInput::make('city_id')
+                    ->searchable()
+                    ->preload(),
+                Select::make('city_id')
+                    ->label(__('City'))
+                    ->relationship('city', 'name')
                     ->required()
-                    ->numeric(),
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('area')
-                    ->default(null),
+                    ->label(__('Area'))
+                    ->default(null)
+                    ->maxLength(255),
                 Select::make('project_type')
-                    ->options(['building' => 'Building', 'roads' => 'Roads'])
+                    ->label(__('Project Type'))
+                    ->options([
+                        'building' => __('Building'),
+                        'roads' => __('Roads'),
+                    ])
                     ->required(),
                 Select::make('work_type')
+                    ->label(__('Work Type'))
                     ->options([
-            'maintenance' => 'Maintenance',
-            'new_construction' => 'New construction',
-            'completion' => 'Completion',
-        ])
+                        'maintenance' => __('Maintenance'),
+                        'new_construction' => __('New construction'),
+                        'completion' => __('Completion'),
+                    ])
                     ->required(),
                 Select::make('tender_type')
-                    ->options(['design' => 'Design', 'construction' => 'Construction', 'supply' => 'Supply'])
+                    ->label(__('Tender Type'))
+                    ->options([
+                        'design' => __('Design'),
+                        'construction' => __('Construction'),
+                        'supply' => __('Supply'),
+                    ])
                     ->required(),
-                TextInput::make('category_id')
+                Select::make('category_id')
+                    ->label(__('Category'))
+                    ->relationship('category', 'name')
                     ->required()
-                    ->numeric(),
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('floors')
+                    ->label(__('Floors'))
                     ->numeric()
                     ->default(null),
                 TextInput::make('building_area')
+                    ->label(__('Building Area'))
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->suffix('m²'),
                 TextInput::make('land_area')
+                    ->label(__('Land Area'))
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->suffix('m²'),
                 TextInput::make('required_service')
-                    ->default(null),
+                    ->label(__('Required Service'))
+                    ->default(null)
+                    ->maxLength(255),
                 Select::make('status')
+                    ->label(__('Status'))
                     ->options([
-            'draft' => 'Draft',
-            'pending' => 'Pending',
-            'published' => 'Published',
-            'assigned' => 'Assigned',
-            'completed' => 'Completed',
-        ])
+                        'draft' => __('Draft'),
+                        'pending' => __('Pending'),
+                        'published' => __('Published'),
+                        'assigned' => __('Assigned'),
+                        'completed' => __('Completed'),
+                    ])
                     ->default('draft')
                     ->required(),
-                DateTimePicker::make('closing_date'),
+                DateTimePicker::make('closing_date')
+                    ->label(__('Closing Date')),
             ]);
     }
 }

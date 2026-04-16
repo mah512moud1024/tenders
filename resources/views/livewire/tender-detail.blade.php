@@ -7,7 +7,7 @@
                     <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                     </svg>
-                    Browse Tenders
+                    {{__('Browse Tenders')}}
                 </a>
             </li>
             <li aria-current="page">
@@ -52,7 +52,7 @@
 
                 <!-- Description -->
                 <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Description</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Project Description')}}</h2>
                     <div class="prose prose-lg max-w-none dark:prose-invert text-gray-600 dark:text-gray-300">
                         {!! $tender->description !!}
                     </div>
@@ -60,7 +60,7 @@
 
                 <!-- Project Details -->
                 <div class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Specifications</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Project Specifications')}}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @if($tender->building_area)
                             <div class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -70,8 +70,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Building Area</div>
-                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ $tender->building_area }} m²</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('Building Area')}}</div>
+                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ $tender->building_area }} {{__('m²')}}</div>
                                 </div>
                             </div>
                         @endif
@@ -84,8 +84,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Land Area</div>
-                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ $tender->land_area }} m²</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('Land Area')}}</div>
+                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ $tender->land_area }} {{__('m²')}}</div>
                                 </div>
                             </div>
                         @endif
@@ -98,7 +98,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Number of Floors</div>
+                                    <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('Number of Floors')}}</div>
                                     <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ $tender->floors }}</div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-sm font-medium text-gray-500 dark:text-gray-400">Closing Date</div>
+                                <div class="text-sm font-medium text-gray-500 dark:text-gray-400">{{__('Closing Date')}}</div>
                                 <div class="text-lg font-semibold text-red-600 dark:text-red-400">{{ $tender->closing_date->format('M d, Y') }}</div>
                                 <div class="text-sm text-gray-500 dark:text-gray-400">{{ $tender->closing_date->diffForHumans() }}</div>
                             </div>
@@ -125,18 +125,18 @@
         <div class="space-y-6">
             <!-- Action Card -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Submit Your Quote</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{__('Submit Your Quote')}}</h3>
 
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Status</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{{__('Status')}}</span>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">
-                            Active
+                            {{__('Active')}}
                         </span>
                     </div>
 
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Time Remaining</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{{__('Time Remaining')}}</span>
                         <span class="text-sm font-medium text-red-600 dark:text-red-400">
                             {{ $tender->closing_date->diffForHumans() }}
                         </span>
@@ -150,25 +150,25 @@
 
             <!-- Client Information -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Client Information</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{__('Client Information')}}</h3>
 
                 <div class="space-y-3">
                     <div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400">Posted By</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">{{__('Posted By')}}</div>
                         <div class="font-medium text-gray-900 dark:text-white">
                             {{ $tender->user->business_name ?? $tender->user->full_name }}
                         </div>
                     </div>
 
                     <div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400">Location</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">{{__('Location')}}</div>
                         <div class="font-medium text-gray-900 dark:text-white">
                             {{ $tender->city->name }}, {{ $tender->city->country->name }}
                         </div>
                     </div>
 
                     <div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400">Tender Posted</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400"{{__('Tender Posted')}}></div>
                         <div class="font-medium text-gray-900 dark:text-white">
                             {{ $tender->created_at->format('M d, Y') }}
                         </div>

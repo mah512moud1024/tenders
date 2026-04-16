@@ -25,7 +25,7 @@ class SubscriptionPolicy
     public function create(User $user)
     {
         // Only service providers can create subscriptions
-        return $user->hasAnyRole(['consultant', 'contractor', 'supplier']);
+        return $user->hasAnyRole(['consultant', 'contractor', 'supplier', 'admin']);
     }
 
     public function update(User $user, Subscription $subscription)

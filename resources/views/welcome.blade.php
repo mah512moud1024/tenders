@@ -180,7 +180,7 @@
             @foreach(['basic','standard','enterprise'] as $plan)
                 <div class="pricing-card p-8 bg-white rounded-2xl {{ $plan == 'standard' ? 'featured' : '' }}" data-aos="fade-up" data-aos-delay="{{ $loop->index * 200 }}" data-aos-duration="500">
                     @if($plan == 'standard')
-                        <div class="bg-indigo-600 text-white text-sm font-bold py-1 px-4 rounded-full inline-block mb-4">Most Popular</div>
+                        <div class="bg-indigo-600 text-white text-sm font-bold py-1 px-4 rounded-full inline-block mb-4">{{ __('Most Popular') }}</div>
                     @endif
 
                     <div class="mb-6">
@@ -188,7 +188,7 @@
                         <div class="mt-4 flex items-baseline">
                             <span class="text-4xl font-bold text-gray-900">{{ __('plans.' . $plan . '.price') }}</span>
                             @if($plan != 'enterprise')
-                                <span class="ml-2 text-gray-600">/month</span>
+                                <span class="ml-2 text-gray-600">/{{ __('month') }}</span>
                             @endif
                         </div>
                         <p class="mt-2 text-gray-600">{{ __('plans.' . $plan . '.desc') }}</p>

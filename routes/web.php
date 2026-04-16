@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\QuoteDocument;
 use App\Models\User;
 use App\Notifications\NewQuoteAdminNotification;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +11,27 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\FileDownloadController;
 use App\Livewire\TenderDetail;
 use app\Models\Tender;
+
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Message;
+
+Route::get('/test-mail', function () {
+    Mail::mailer('mailgun')->send([], [], function (Message $message) {
+        $message->to('mahmoud@synabytes.com')
+            ->subject('Mailgun API test')
+            ->html('<p>test.</p>');
+    });
+
+    return 'Sent';
+});
+
+Route::get('/debug-mailgun', function () {
+    return response()->json(config('services.mailgun'));
+});
+
 // Language Switcher Route
+
+
 Route::get('language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ar'])) {
         Session::put('locale', $locale);
@@ -58,8 +79,9 @@ Route::get('/documents/quote/{document}/download', [FileDownloadController::clas
     ->middleware(['auth'])
     ->name('quote.document.download');
 
+
 // Add this route for document downloads
-Route::get('/quote-documents/{quoteDocument}/download', function (\App\Models\QuoteDocument $quoteDocument) {
+Route::get('/quote-documents/{quoteDocument}/download', function (QuoteDocument $quoteDocument) {
     // Check if the user owns this quote
     if (auth()->id() !== $quoteDocument->quote->user_id) {
         abort(403, 'Unauthorized action.');
@@ -71,6 +93,8 @@ Route::get('/quote-documents/{quoteDocument}/download', function (\App\Models\Qu
 
     return Storage::download($quoteDocument->file_path, $quoteDocument->original_name);
 })->name('quote-documents.download')->middleware(['auth']);
+
+
 
 Route::get('/tenders', TenderList::class)->middleware(['auth'])->name('tenders.index');
 

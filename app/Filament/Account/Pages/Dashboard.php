@@ -2,6 +2,7 @@
 
 namespace App\Filament\Account\Pages;
 
+//use Filament\Pages\Dashboards as BaseDashboard;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
