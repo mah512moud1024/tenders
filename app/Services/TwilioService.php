@@ -50,10 +50,13 @@ class TwilioService
         try {
             $this->client->verify->v2->services($this->verifySid)
                 ->verifications
-                ->create($to, 'sms' ,  ["'channel_configuration' => [
+                ->create($to, 'sms', [
+                    'channel_configuration' => [
                         'sms' => [
-                            'enable_whatsapp' => false
-                        ]"]);
+                            'enable_whatsapp' => false,
+                        ],
+                    ],
+                ]);
             return true;
         } catch (\Exception $e) {
             Log::error('Twilio Verify send failed: ' . $e->getMessage());

@@ -15,9 +15,16 @@ class ServiceAreasTable
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('user.first_name')
+                    ->label('User')
+                    ->formatStateUsing(fn ($record) => $record->user ? "{$record->user->first_name} {$record->user->last_name}" : '')
+                    ->sortable()
+                    ->searchable(query: function ($query, string $search) {
+                        $query->whereHas('user', function ($q) use ($search) {
+                            $q->where('first_name', 'like', "%{$search}%")
+                              ->orWhere('last_name', 'like', "%{$search}%");
+                        });
+                    }),
                 TextColumn::make('city.name')
                     ->numeric()
                     ->sortable(),

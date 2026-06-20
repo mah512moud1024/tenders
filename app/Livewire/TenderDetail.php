@@ -67,8 +67,26 @@ class TenderDetail extends Component implements HasForms, HasActions
                 FileUpload::make('documents')
                     ->label('Supporting Documents')
                     ->multiple()
-                    ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                    ->maxSize(10240)
+                    ->acceptedFileTypes([
+                        '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.dwg', '.dwf', '.dxf',
+                        'application/pdf',
+                        'application/msword',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/vnd.ms-excel',
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        'image/vnd.dwg',
+                        'image/x-dwg',
+                        'image/vnd.dxf',
+                        'image/x-dxf',
+                        'drawing/x-dwf',
+                        'model/vnd.dwf',
+                        'application/acad',
+                        'application/dxf',
+                        'application/x-dwg',
+                        'application/x-dxf',
+                    ])
+                    ->rules(['file', 'extensions:pdf,doc,docx,xls,xlsx,dwg,dwf,dxf'])
+                    ->maxSize(2097152) // 2GB
                     ->directory('private/quote-documents')
             ])
             ->action(function (array $data) {

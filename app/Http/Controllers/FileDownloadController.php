@@ -17,16 +17,22 @@ class FileDownloadController extends Controller
      */
     public function downloadQuoteDocument(QuoteDocument $document)
     {
+        $user = auth()->user();
+        if (!$user) {
+            abort(403, 'Unauthorized.');
+        }
+
         $tenderOwnerId = $document->quote->tender->user_id;
         $quoteSubmitterId = $document->quote->user_id;
-        $loggedInUserId = auth()->id();
+        $loggedInUserId = $user->id;
 
-        // 2. Define Authorization: Check if the logged-in user is either the Tender Owner OR the Quote Submitter
+        // Check if the logged-in user is the Tender Owner, the Quote Submitter, or an Admin
         $isTenderOwner = $loggedInUserId === $tenderOwnerId;
         $isQuoteSubmitter = $loggedInUserId === $quoteSubmitterId;
+        $isAdmin = $user->hasRole('admin');
 
-        if (!$isTenderOwner && !$isQuoteSubmitter) {
-            // If the user is neither the owner of the tender nor the submitter of the quote, deny access.
+        if (!$isTenderOwner && !$isQuoteSubmitter && !$isAdmin) {
+            // If the user is not the owner, submitter, or an admin, deny access.
             abort(403, 'Unauthorized: You are neither the tender owner nor the quote submitter.');
         }
 

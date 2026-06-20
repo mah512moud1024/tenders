@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumb -->
     <nav class="flex mb-8" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
@@ -21,15 +21,15 @@
         </ol>
     </nav>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <!-- Main Content -->
         <div class="lg:col-span-2">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                 <!-- Header -->
-                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="p-8 border-b border-gray-200 dark:border-gray-700">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
-                            <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                                 {{ $tender->title }}
                             </h1>
                             <div class="flex flex-wrap gap-2">
@@ -52,15 +52,15 @@
 
                 <!-- Description -->
                 <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Project Description')}}</h2>
+                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Project Description')}}</h2>
                     <div class="prose prose-lg max-w-none dark:prose-invert text-gray-600 dark:text-gray-300">
                         {!! $tender->description !!}
                     </div>
                 </div>
 
                 <!-- Project Details -->
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Project Specifications')}}</h2>
+                <div class="p-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Project Specifications')}}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @if($tender->building_area)
                             <div class="flex items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -118,6 +118,32 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Attachments -->
+                @if($tender->specifications->isNotEmpty())
+                    <div class="p-8 border-t border-gray-200 dark:border-gray-700">
+                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Attachments')}}</h2>
+                        <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @foreach($tender->specifications as $spec)
+                                <li class="py-3 flex items-center justify-between text-sm">
+                                    <div class="flex items-center flex-1 w-0">
+                                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                        </svg>
+                                        <span class="ml-2 flex-1 w-0 truncate text-gray-700 dark:text-gray-300">
+                                            {{ $spec->original_name }} ({{ number_format($spec->file_size / (1024 * 1024), 2) }} MB)
+                                        </span>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <a href="{{ route('tenders.specifications.download', $spec) }}" class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300">
+                                            {{__('Download')}}
+                                        </a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -125,7 +151,7 @@
         <div class="space-y-6">
             <!-- Action Card -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{__('Submit Your Quote')}}</h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Submit Your Quote')}}</h3>
 
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
@@ -150,7 +176,7 @@
 
             <!-- Client Information -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{__('Client Information')}}</h3>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{__('Client Information')}}</h3>
 
                 <div class="space-y-3">
                     <div>

@@ -124,7 +124,71 @@ class TenderForm
                         ),
                 ])->columns(2),
 
-
+            Section::make('Tender Documents')
+                ->description('Upload project drawings, specifications, bills of quantities, etc.')
+                ->schema([
+                    Forms\Components\FileUpload::make('attachments')
+                        ->label(__('Attachments'))
+                        ->multiple()
+                        ->disk('s3')
+                        ->directory('tender-specifications')
+                        ->visibility('private')
+                        ->acceptedFileTypes([
+                            '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.dwg', '.dwf', '.dxf',
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                            'application/vnd.ms-excel',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            'image/vnd.dwg',
+                            'image/x-dwg',
+                            'image/vnd.dxf',
+                            'image/x-dxf',
+                            'drawing/x-dwf',
+                            'model/vnd.dwf',
+                            'application/acad',
+                            'application/dxf',
+                            'application/x-dwg',
+                            'application/x-dxf',
+                        ])
+                        ->rules(['file', 'extensions:pdf,doc,docx,xls,xlsx,dwg,dwf,dxf'])
+                        ->maxSize(2097152) // 2GB
+                        ->loadStateFromRelationshipsUsing(function (\App\Models\Tender $record) {
+                            return $record->specifications->pluck('file_path')->toArray();
+                        })
+                        ->saveRelationshipsUsing(function (\App\Models\Tender $record, $state) {
+                            $currentPaths = is_array($state) ? $state : [];
+                            
+                            // Delete specifications that are no longer in the state
+                            $record->specifications()->whereNotIn('file_path', $currentPaths)->delete();
+                            
+                            // Add new specifications
+                            $existingPaths = $record->specifications()->pluck('file_path')->toArray();
+                            
+                            foreach ($currentPaths as $path) {
+                                if (!in_array($path, $existingPaths)) {
+                                    $filename = basename($path);
+                                    $extension = pathinfo($path, PATHINFO_EXTENSION);
+                                    
+                                    $fileSize = 0;
+                                    try {
+                                        if (\Illuminate\Support\Facades\Storage::disk('s3')->exists($path)) {
+                                            $fileSize = \Illuminate\Support\Facades\Storage::disk('s3')->size($path);
+                                        }
+                                    } catch (\Exception $e) {
+                                        // s3 not configured yet in local environment
+                                    }
+                                    
+                                    $record->specifications()->create([
+                                        'file_path' => $path,
+                                        'original_name' => $filename,
+                                        'file_type' => $extension,
+                                        'file_size' => $fileSize,
+                                    ]);
+                                }
+                            }
+                        })
+                ]),
         ];
     }
 }

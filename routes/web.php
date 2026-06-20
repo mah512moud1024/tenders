@@ -9,8 +9,10 @@ use App\Livewire\QuoteForm;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\FileDownloadController;
+use App\Http\Controllers\TenderSpecificationDownloadController;
 use App\Livewire\TenderDetail;
-use app\Models\Tender;
+use App\Models\Tender;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Message;
@@ -75,9 +77,15 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::get('/tenders/specifications/{specification}/download', [TenderSpecificationDownloadController::class, 'download'])
+    ->middleware(['auth'])
+    ->name('tenders.specifications.download');
+
 Route::get('/documents/quote/{document}/download', [FileDownloadController::class, 'downloadQuoteDocument'])
     ->middleware(['auth'])
     ->name('quote.document.download');
+
+
 
 
 // Add this route for document downloads

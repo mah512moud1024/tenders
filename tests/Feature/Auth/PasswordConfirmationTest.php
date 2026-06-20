@@ -26,7 +26,7 @@ test('password can be confirmed', function () {
     $component->call('confirmPassword');
 
     $component
-        ->assertRedirect('/filament.account.pages.dashboard')
+        ->assertRedirect(route('filament.account.pages.dashboard', absolute: false))
         ->assertHasNoErrors();
 });
 

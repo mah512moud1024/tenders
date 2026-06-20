@@ -14,53 +14,7 @@
 
     <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script>
-        // Initialize AOS
-        function initAOS() {
-            AOS.init({
-                duration: 100,
-                once: true,
-                offset: 100
-            });
-        }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initAOS();
-
-            // Nav link active state
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            function updateActiveNavLink() {
-                let scrollY = window.pageYOffset;
-
-                sections.forEach(section => {
-                    const sectionHeight = section.offsetHeight;
-                    const sectionTop = section.offsetTop - 100;
-                    const sectionId = section.getAttribute('id');
-
-                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('nav-active');
-                            if (link.getAttribute('href') === `#${sectionId}`) {
-                                link.classList.add('nav-active');
-                            }
-                        });
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateActiveNavLink);
-        });
-
-        // Reinitialize AOS on Livewire navigation
-        document.addEventListener('livewire:navigated', () => {
-            setTimeout(() => {
-                initAOS();
-            }, 100);
-        });
-    </script>
 
     <!-- Scripts -->
     @vite(['resources/css/public.css', 'resources/js/app.js'])
@@ -186,11 +140,11 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
-                    <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
-                    <a href="#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
-                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
+                    <a href="{{ url('/') }}#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="{{ url('/') }}#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
+                    <a href="{{ url('/') }}#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
+                    <a href="{{ url('/') }}#pricing" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
+                    <a href="{{ url('/') }}#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
 
                     <!-- Language Switcher -->
                     @if (app()->getLocale() == 'ar')
@@ -228,11 +182,12 @@
             <div x-show="open" class="lg:hidden py-4 border-t border-gray-200" x-cloak>
                 <div class="flex flex-col space-y-4">
                     <a href="#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
-                    <a href="#how-it-works" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
-                    <a href="#why-us" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="#pricing" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
-                    <a href="#testimonials" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
+                    <a href="{{ url('/') }}#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="{{ url('/') }}#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
+                    <a href="{{ url('/') }}#how-it-works" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
+                    <a href="{{ url('/') }}#why-us" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="{{ url('/') }}#pricing" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
+                    <a href="{{ url('/') }}#testimonials" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
 
                     <div class="pt-4 border-t border-gray-200">
                         @auth
@@ -295,38 +250,49 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
-    // Initialize AOS
-    document.addEventListener('DOMContentLoaded', function() {
+    // AOS is now loaded above — safe to call AOS.init() here.
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+
+    // Nav link active state
+    (function () {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        function updateActiveNavLink() {
+            let scrollY = window.pageYOffset;
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('nav-active');
+                        if (link.getAttribute('href') === `#${sectionId}`) link.classList.add('nav-active');
+                    });
+                }
+            });
+        }
+        window.addEventListener('scroll', updateActiveNavLink);
+    })();
+
+    // Full Livewire page navigation (wire:navigate) — full re-init so new
+    // pages get their slide-in animations.
+    document.addEventListener('livewire:navigated', () => {
         AOS.init({
             duration: 800,
             once: true,
             offset: 100
         });
+    });
 
-        // Nav link active state
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        function updateActiveNavLink() {
-            let scrollY = window.pageYOffset;
-
-            sections.forEach(section => {
-                const sectionHeight = section.offsetHeight;
-                const sectionTop = section.offsetTop - 100;
-                const sectionId = section.getAttribute('id');
-
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navLinks.forEach(link => {
-                        link.classList.remove('nav-active');
-                        if (link.getAttribute('href') === `#${sectionId}`) {
-                            link.classList.add('nav-active');
-                        }
-                    });
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveNavLink);
+    // Partial Livewire DOM update (validation errors, reactive data) —
+    // use refresh() instead of init() so already-animated elements
+    // (once:true) are NOT reset and won't fly in again from off-screen.
+    document.addEventListener('livewire:updated', () => {
+        AOS.refresh();
     });
 </script>
 

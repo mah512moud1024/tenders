@@ -21,6 +21,13 @@ class User extends Authenticatable implements FilamentUser
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function setNameAttribute($value): void
+    {
+        $parts = explode(' ', (string) $value, 2);
+        $this->first_name = $parts[0] ?? '';
+        $this->last_name = $parts[1] ?? '';
+    }
+
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -36,6 +43,7 @@ class User extends Authenticatable implements FilamentUser
      * @var list<string>
      */
     protected $fillable = [
+        'name',
         'first_name',
         'last_name',
         'email',
@@ -140,6 +148,11 @@ class User extends Authenticatable implements FilamentUser
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 
 

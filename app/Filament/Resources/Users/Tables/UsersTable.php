@@ -21,7 +21,7 @@ class UsersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('first_name')
                     ->label(__('Name'))
                     ->formatStateUsing(fn (User $record) => $record->first_name . ' ' . $record->last_name)
                     ->searchable(['first_name', 'last_name'])

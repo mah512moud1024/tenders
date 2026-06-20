@@ -48,7 +48,7 @@ test('navigation menu can be rendered', function () {
 
     $this->actingAs($user);
 
-    $response = $this->get('/filament.account.pages.dashboard');
+    $response = $this->get(route('filament.account.pages.dashboard'));
 
     $response
         ->assertOk()

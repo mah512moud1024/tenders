@@ -19,10 +19,16 @@ class SubscriptionsTable
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('user.name')
+                TextColumn::make('user.first_name')
                     ->label('User')
-                    ->numeric()
-                    ->sortable(),
+                    ->formatStateUsing(fn ($record) => $record->user ? "{$record->user->first_name} {$record->user->last_name}" : '')
+                    ->sortable()
+                    ->searchable(query: function ($query, string $search) {
+                        $query->whereHas('user', function ($q) use ($search) {
+                            $q->where('first_name', 'like', "%{$search}%")
+                              ->orWhere('last_name', 'like', "%{$search}%");
+                        });
+                    }),
                 TextColumn::make('plan.name')
                     ->label('Plan')
                     ->numeric()

@@ -46,9 +46,9 @@
                 <!-- Documents -->
                 <div class="mb-6">
                     <label class="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-300">
-                        {{__('Supporting Documents (PDF, Word, Excel)')}}
+                        {{__('Supporting Documents (PDF, Word, Excel, DWG, DWF, DXF)')}}
                     </label>
-                    <input type="file" wire:model="documents" multiple class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-primary-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-primary-700/20 dark:file:text-primary-300 dark:hover:file:bg-primary-700/30">
+                    <input type="file" wire:model="documents" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.dwg,.dwf,.dxf" class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-primary-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-primary-700/20 dark:file:text-primary-300 dark:hover:file:bg-primary-700/30">
                     @error('documents.*') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
 

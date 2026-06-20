@@ -23,7 +23,7 @@ class QuoteForm extends Component
     protected $rules = [
         'amount' => 'required|numeric|min:0',
         'proposal' => 'required|string|min:50',
-        'documents.*' => 'file|mimes:pdf,doc,docx,xls,xlsx|max:10240', // 10MB
+        'documents.*' => 'file|extensions:pdf,doc,docx,xls,xlsx,dwg,dwf,dxf|max:2097152', // 2GB
     ];
 
     public function mount(Tender $tender)
