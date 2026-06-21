@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /account/
+Disallow: /filament/
+
+Sitemap: https://buildariom.com/sitemap.xml

@@ -49,7 +49,9 @@ class AccountPanelProvider extends PanelProvider
 
             ])
             ->font('Figtree') // Match your public pages
-            ->brandName(config('app.name', 'Tenders Platform'))
+            ->brandName(config('app.name', 'Buildariom'))
+            ->brandLogo(fn () => asset('storage/logo.png'))
+            ->brandLogoHeight('2.5rem')
             ->viteTheme('resources/css/app.css')
 
             ->discoverResources(in: app_path('Filament/Account/Resources'), for: 'App\Filament\Account\Resources')

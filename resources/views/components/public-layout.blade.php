@@ -5,7 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- SEO Meta Tags -->
+    <title>@yield('title', __('meta.title'))</title>
+    <meta name="description" content="@yield('meta_description', __('meta.description'))">
+    <meta name="keywords" content="@yield('meta_keywords', __('meta.keywords'))">
+    <meta name="author" content="Buildariom">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request()->url() }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="og:title" content="@yield('title', __('meta.title'))">
+    <meta property="og:description" content="@yield('meta_description', __('meta.description'))">
+    <meta property="og:image" content="{{ asset('storage/logo.png') }}">
+    <meta property="og:site_name" content="Buildariom">
+    <meta property="og:locale" content="{{ app()->getLocale() == 'ar' ? 'ar_AR' : 'en_US' }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request()->url() }}">
+    <meta name="twitter:title" content="@yield('title', __('meta.title'))">
+    <meta name="twitter:description" content="@yield('meta_description', __('meta.description'))">
+    <meta name="twitter:image" content="{{ asset('storage/logo.png') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('storage/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('storage/logo.png') }}">
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "name": "Buildariom",
+      "url": "https://buildariom.com",
+      "logo": "{{ asset('storage/logo.png') }}",
+      "sameAs": [
+        "https://www.facebook.com/buildariom",
+        "https://www.twitter.com/buildariom",
+        "https://www.linkedin.com/company/buildariom"
+      ]
+    }
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -67,8 +109,8 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-                        <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">T</div>
-                        <span class="self-center text-2xl font-bold text-gray-900">{{ config('app.name', 'Tenders Platform') }}</span>
+                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name') }} Logo" class="h-10 w-auto object-contain rounded-md">
+                        <span class="self-center text-2xl font-bold text-gray-900">{{ config('app.name', 'Buildariom') }}</span>
                     </a>
                 </div>
 
@@ -144,8 +186,8 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="md:col-span-2">
                     <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
-                        <div class="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">T</div>
-                        <span class="self-center text-2xl font-bold">{{ config('app.name', 'Tenders Platform') }}</span>
+                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name') }} Logo" class="h-10 w-auto object-contain rounded-md">
+                        <span class="self-center text-2xl font-bold">{{ config('app.name', 'Buildariom') }}</span>
                     </a>
                     <p class="text-gray-400 max-w-md">
                         {{__('The leading platform for construction tenders in the UAE. Connect with verified contractors and streamline your project bidding process.')}}
@@ -170,7 +212,7 @@
             </div>
 
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>© {{ date('Y') }} {{ config('app.name', 'Tenders Platform') }}. {{__('All rights reserved.')}}</p>
+                <p>© {{ date('Y') }} {{ config('app.name', 'Buildariom') }}. {{__('All rights reserved.')}}</p>
             </div>
         </div>
     </footer>

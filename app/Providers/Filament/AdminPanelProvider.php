@@ -44,6 +44,9 @@ class AdminPanelProvider extends PanelProvider
                 ],
 
             ])
+            ->brandName(config('app.name', 'Buildariom'))
+            ->brandLogo(fn () => asset('storage/logo.png'))
+            ->brandLogoHeight('2.5rem')
             ->viteTheme('resources/css/app.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
