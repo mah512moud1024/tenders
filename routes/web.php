@@ -69,9 +69,15 @@ Route::get('/invoices/{invoice}/download-pdf', function ($invoice) {
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('dashboard', function () {
+    $user = auth()->user();
+    if ($user) {
+        return $user->hasRole('admin')
+            ? redirect()->route('filament.admin.pages.dashboard')
+            : redirect()->route('filament.account.pages.dashboard');
+    }
+    return redirect()->route('login');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

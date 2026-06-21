@@ -150,7 +150,7 @@ new #[Layout('components.public-layout')] class extends Component
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <!-- Registration Form -->
                 <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100" >
-                    <form wire:submit="register" class="space-y-6">
+                    <form wire:submit="register" method="POST" class="space-y-6">
                         <div class="text-center mb-8">
                             <div class="w-16 h-16 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
@@ -421,7 +421,7 @@ new #[Layout('components.public-layout')] class extends Component
                 <a href="{{ route('login') }}" class="inline-flex items-center justify-center bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
                     {{__('Sign In to Your Account')}}
                 </a>
-                <a href="#home" class="inline-flex items-center justify-center bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
+                <a href="{{ url('/') }}#home" class="inline-flex items-center justify-center bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">
                     {{__('Learn More')}}
                 </a>
             </div>

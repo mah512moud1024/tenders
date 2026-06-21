@@ -11,13 +11,12 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 
-
     <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-
-    <!-- Scripts -->
+    <!-- Scripts & Styles via Vite -->
     @vite(['resources/css/public.css', 'resources/js/app.js'])
+    @livewireStyles
 
     <style>
         :root {
@@ -27,104 +26,39 @@
             --text-dark: #1f2937;
             --text-light: #6b7280;
         }
-        .overflow-prevent{
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: 'Figtree', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        .gradient-bg {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        }
-
-        .section-padding {
-            padding: 5rem 0;
-        }
-
+        .overflow-prevent { overflow-x: hidden; }
+        body { font-family: 'Figtree', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); }
+        .section-padding { padding: 5rem 0; }
         .card-hover {
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
-
         .card-hover:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
         }
-
-        .nav-active {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .testimonial-card {
-            background: white;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
+        .nav-active { color: var(--primary); font-weight: 600; }
+        .testimonial-card { background: white; border-radius: 12px; position: relative; overflow: hidden; }
         .testimonial-card::before {
-            content: """;
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            font-size: 80px;
-            color: #e5e7eb;
-            font-family: Georgia, serif;
-            z-index: 0;
+            content: "\201C";
+            position: absolute; top: -10px; left: 20px;
+            font-size: 80px; color: #e5e7eb; font-family: Georgia, serif; z-index: 0;
         }
-
-        .pricing-card {
-            transition: all 0.3s ease;
-            border: 2px solid #e5e7eb;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-
-        .pricing-card:hover {
-            border-color: var(--primary);
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-        }
-
-        /* RTL support */
-        [dir="rtl"] .testimonial-card::before {
-            left: auto;
-            right: 20px;
-        }
-
-        /* Mobile responsiveness */
+        .pricing-card { transition: all 0.3s ease; border: 2px solid #e5e7eb; }
+        .pricing-card.featured { border-color: var(--primary); transform: scale(1.05); }
+        .pricing-card:hover { border-color: var(--primary); }
+        .faq-item { border-bottom: 1px solid #e5e7eb; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-item.active .faq-answer { max-height: 500px; }
+        [dir="rtl"] .testimonial-card::before { left: auto; right: 20px; }
         @media (max-width: 1000px) {
-            .section-padding {
-                padding: 3rem 0;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1);
-            }
+            .section-padding { padding: 3rem 0; }
+            .pricing-card.featured { transform: scale(1); }
         }
     </style>
-
 </head>
-<body class="font-sans text-gray-900  dark:bg-gray-900 antialiased">
+<body class="font-sans text-gray-900 dark:bg-gray-900 antialiased">
 <div x-data="{ open: false }" class="min-h-screen">
     <!-- Navigation -->
     <nav class="bg-white/90 backdrop-blur-md fixed w-full z-50 top-0 shadow-sm" x-data="{ open: false, scrolled: false }"
@@ -140,11 +74,11 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
-                    <a href="{{ url('/') }}#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="{{ url('/') }}#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
-                    <a href="{{ url('/') }}#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
-                    <a href="{{ url('/') }}#pricing" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
-                    <a href="{{ url('/') }}#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
+                    <a href="/#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="/#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
+                    <a href="/#how-it-works" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
+                    <a href="/#pricing" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
+                    <a href="/#testimonials" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
 
                     <!-- Language Switcher -->
                     @if (app()->getLocale() == 'ar')
@@ -163,7 +97,6 @@
 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden flex items-center space-x-4 rtl:space-x-reverse">
-                    <!-- Language Switcher -->
                     @if (app()->getLocale() == 'ar')
                         <a href="{{ route('language.switch', 'en') }}" class="text-sm font-medium text-gray-600">EN</a>
                     @else
@@ -181,13 +114,11 @@
             <!-- Mobile Menu -->
             <div x-show="open" class="lg:hidden py-4 border-t border-gray-200" x-cloak>
                 <div class="flex flex-col space-y-4">
-                    <a href="#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="{{ url('/') }}#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="{{ url('/') }}#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
-                    <a href="{{ url('/') }}#how-it-works" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
-                    <a href="{{ url('/') }}#why-us" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
-                    <a href="{{ url('/') }}#pricing" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
-                    <a href="{{ url('/') }}#testimonials" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
+                    <a href="/#home" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Home')}}</a>
+                    <a href="/#about" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('About')}}</a>
+                    <a href="/#how-it-works" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('How It Works')}}</a>
+                    <a href="/#pricing" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Pricing')}}</a>
+                    <a href="/#testimonials" @click="open = false" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors nav-link">{{__('Testimonials')}}</a>
 
                     <div class="pt-4 border-t border-gray-200">
                         @auth
@@ -202,16 +133,13 @@
         </div>
     </nav>
 
-
     <!-- Page Content -->
-    <main >
-
+    <main>
         {{ $slot }}
     </main>
 
     <!-- Footer -->
-    <!-- Footer -->
-    <footer class="bg-gray-800   text-white py-12">
+    <footer class="bg-gray-800 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="md:col-span-2">
@@ -241,24 +169,19 @@
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
                 <p>© {{ date('Y') }} {{ config('app.name', 'Tenders Platform') }}. {{__('All rights reserved.')}}</p>
             </div>
         </div>
     </footer>
 </div>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 <script>
-    // AOS is now loaded above — safe to call AOS.init() here.
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+        AOS.init({ duration: 800, once: true, offset: 0 });
 
-    // Nav link active state
-    (function () {
+        // Nav link active state
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
         function updateActiveNavLink() {
@@ -276,27 +199,14 @@
             });
         }
         window.addEventListener('scroll', updateActiveNavLink);
-    })();
-
-    // Full Livewire page navigation (wire:navigate) — full re-init so new
-    // pages get their slide-in animations.
-    document.addEventListener('livewire:navigated', () => {
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
     });
 
-    // Partial Livewire DOM update (validation errors, reactive data) —
-    // use refresh() instead of init() so already-animated elements
-    // (once:true) are NOT reset and won't fly in again from off-screen.
-    document.addEventListener('livewire:updated', () => {
-        AOS.refresh();
-    });
+    document.addEventListener('livewire:navigated', () => { AOS.init({ duration: 800, once: true, offset: 0 }); });
+    document.addEventListener('livewire:updated', () => { AOS.refreshHard(); });
 </script>
 
 <livewire:verify-phone-modal />
+@livewireScripts
 
 </body>
 </html>

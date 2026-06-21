@@ -8,6 +8,7 @@ Route::middleware('guest')->group(function () {
     Volt::route('register', 'pages.auth.register')
         ->name('register');
 
+    // Livewire route for the login page (Livewire inline component)
     Volt::route('login', 'pages.auth.login')
         ->name('login');
 

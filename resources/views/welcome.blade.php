@@ -55,7 +55,7 @@
 <!-- About Section -->
 <section id="about" class="section-padding bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">>
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="500">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ __('about.title') }}</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ __('about.text') }}</p>
         </div>
