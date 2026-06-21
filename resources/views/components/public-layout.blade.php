@@ -30,8 +30,8 @@
     <meta name="twitter:image" content="{{ asset('storage/logo.png') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('storage/logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('storage/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('storage/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('storage/favicon.png') }}">
 
     <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -106,13 +106,10 @@
     <nav class="bg-white/90 backdrop-blur-md fixed w-full z-50 top-0 shadow-sm" x-data="{ open: false, scrolled: false }"
          @scroll.window="scrolled = window.scrollY > 50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name') }} Logo" class="h-10 w-auto object-contain rounded-md">
-                        <span class="self-center text-2xl font-bold text-gray-900">{{ config('app.name', 'Buildariom') }}</span>
+            <div class="flex justify-between items-center py-2">
+                    <a href="{{ url('/') }}" class="flex items-center">
+                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name') }} Logo" class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain">
                     </a>
-                </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
@@ -185,9 +182,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="md:col-span-2">
-                    <a href="{{ url('/') }}" class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
-                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name') }} Logo" class="h-10 w-auto object-contain rounded-md">
-                        <span class="self-center text-2xl font-bold">{{ config('app.name', 'Buildariom') }}</span>
+                    <a href="{{ url('/') }}" class="flex items-center mb-4">
+                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name') }} Logo" class="h-12 md:h-16 w-auto object-contain">
                     </a>
                     <p class="text-gray-400 max-w-md">
                         {{__('The leading platform for construction tenders in the UAE. Connect with verified contractors and streamline your project bidding process.')}}
